@@ -6,13 +6,52 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>login</ion-title>
+  <ion-navbar color="secondary">
+    <ion-title>Login/Register</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+
+	<div >
+	   <img src="assets/icon/icon.png"  class="center"/>
+	</div>
+
+
+  <div *ngIf="showLogin">
+    <ion-item>
+      <ion-input type="email" placeholder="Email" [(ngModel)]="email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input type="password" placeholder="Password" [(ngModel)]="password"></ion-input>
+    </ion-item>
+
+	  <button ion-button color="primary" full (click)="doLogin()" >Login</button>
+	  Se non hai un account:
+	  <button ion-button color="primary" full (click)="doRegister()">Registrati</button>
+  </div>
+
+  <div *ngIf="!showLogin">
+
+    <ion-item>
+      <ion-input type="text" placeholder="Nome" [(ngModel)]="name"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input type="email" placeholder="Email" [(ngModel)]="email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input type="password" placeholder="Password" [(ngModel)]="password"></ion-input>
+    </ion-item>
+    <button ion-button color="primary" full (click)="doRegister()">Registrati</button>
+  </div>
+
+
+
+
 
 </ion-content>

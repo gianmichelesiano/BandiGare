@@ -10,6 +10,33 @@ import { PreferitePage } from '../pages/preferite/preferite';
 import { ImportantiPage } from '../pages/importanti/importanti';
 import { RicercaPage } from '../pages/ricerca/ricerca';
 import { AvanzataPage } from '../pages/avanzata/avanzata';
+import { LoginPage } from '../pages/login/login';
+import { IntroPage } from '../pages/intro/intro';
+import { Storage } from '@ionic/storage';
+import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
+import { AngularFireModule } from 'angularfire2';
+import { LOCALE_ID } from '@angular/core';
+
+
+export function provideStorage() {
+  return new Storage(['sqlite', 'websql', 'indexeddb'], { name: 'bandigare' });
+}
+
+
+const cloudSettings: CloudSettings = {
+  'core': {
+    'app_id': 'e4895f7a'
+  }
+};
+
+// Must export the config
+export const firebaseConfig = {
+    apiKey: "AIzaSyAecCiVjizFOWgZM4KuSpdzDcyyEw1MBl0",
+    authDomain: "bandigare-8096d.firebaseapp.com",
+    databaseURL: "https://bandigare-8096d.firebaseio.com",
+    storageBucket: "bandigare-8096d.appspot.com",
+    messagingSenderId: "1009811970424"
+};
 
 @NgModule({
   declarations: [
@@ -22,10 +49,14 @@ import { AvanzataPage } from '../pages/avanzata/avanzata';
     PreferitePage,
     ImportantiPage,
     RicercaPage,
-    AvanzataPage
+    AvanzataPage,
+    LoginPage,
+    IntroPage
   ],
   imports: [
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(firebaseConfig),
+    CloudModule.forRoot(cloudSettings)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -38,8 +69,14 @@ import { AvanzataPage } from '../pages/avanzata/avanzata';
     PreferitePage,
     ImportantiPage,
     RicercaPage,
-    AvanzataPage
+    AvanzataPage,
+    LoginPage,
+    IntroPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
+    providers: [
+              { provide: ErrorHandler, useClass: IonicErrorHandler},
+              { provide: LOCALE_ID, useValue: "it-IT" },
+              { provide: Storage, useFactory: provideStorage }
+            ]
 })
 export class AppModule {}

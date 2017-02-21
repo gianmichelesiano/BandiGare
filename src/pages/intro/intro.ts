@@ -1,5 +1,8 @@
+
+
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
+import { Page1 } from '../page1/page1';
 
 /*
   Generated class for the Intro page.
@@ -13,10 +16,22 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class IntroPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
-
+  sliderOptions: any;
+ 
+  constructor(public navCtrl: NavController) {
+ 
+    this.sliderOptions = {
+      pager: true
+    };
+ 
+  }
+ 
   ionViewDidLoad() {
     console.log('ionViewDidLoad IntroPage');
   }
-
+ 
+  goToHome(){
+    this.navCtrl.setRoot(Page1);
+  }
+ 
 }
