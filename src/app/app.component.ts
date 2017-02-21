@@ -3,10 +3,18 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
 import { Page1 } from '../pages/page1/page1';
-import { Page2 } from '../pages/page2/page2';
+import { OggiPage } from '../pages/oggi/oggi';
+import { ScadenzaPage } from '../pages/scadenza/scadenza';
+import { PreferitePage } from '../pages/preferite/preferite';
+import { ImportantiPage } from '../pages/importanti/importanti';
+import { RicercaPage } from '../pages/ricerca/ricerca';
+import { AvanzataPage } from '../pages/avanzata/avanzata';
 
 
-@Component({
+import { AggiornaPage } from '../pages/aggiorna/aggiorna';
+import { PreferenzePage } from '../pages/preferenze/preferenze';
+
+@Component({ 
   templateUrl: 'app.html'
 })
 export class MyApp {
@@ -15,15 +23,29 @@ export class MyApp {
   rootPage: any = Page1;
 
   pages: Array<{title: string, component: any}>;
+  pagesDestra : any;
 
   constructor(public platform: Platform) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Page One', component: Page1 },
-      { title: 'Page Two', component: Page2 }
+      { title: 'Tutte', component: Page1 },
+      { title: 'Ultime gare inserite', component: OggiPage },
+      { title: 'Gare in scadenza', component: ScadenzaPage },
+      { title: 'Preferite', component: PreferitePage },
+      { title: 'Importanti', component: ImportantiPage },
+      { title: 'Ricerca', component: RicercaPage },
+      { title: 'Ricerca Avanzata', component: AvanzataPage },
+
     ];
+
+    this.pagesDestra = [
+        { title: 'Aggiorna', component: AggiornaPage },
+        { title: 'Preferenze', component: PreferenzePage } 
+    ];
+
+
 
   }
 
