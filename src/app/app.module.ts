@@ -12,6 +12,7 @@ import { RicercaPage } from '../pages/ricerca/ricerca';
 import { AvanzataPage } from '../pages/avanzata/avanzata';
 import { LoginPage } from '../pages/login/login';
 import { IntroPage } from '../pages/intro/intro';
+import { LogoutPage } from '../pages/logout/logout';
 import { Storage } from '@ionic/storage';
 import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
 import { AngularFireModule } from 'angularfire2';
@@ -51,7 +52,8 @@ export const firebaseConfig = {
     RicercaPage,
     AvanzataPage,
     LoginPage,
-    IntroPage
+    IntroPage,
+    LogoutPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -71,7 +73,8 @@ export const firebaseConfig = {
     RicercaPage,
     AvanzataPage,
     LoginPage,
-    IntroPage
+    IntroPage,
+    LogoutPage
   ],
     providers: [
               { provide: ErrorHandler, useClass: IonicErrorHandler},

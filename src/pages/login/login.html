@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar color="secondary">
-    <ion-title>Login/Register</ion-title>
+    <ion-title>Login/Registerazione</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -29,9 +29,9 @@
       <ion-input type="password" placeholder="Password" [(ngModel)]="password"></ion-input>
     </ion-item>
 
-	  <button ion-button color="primary" full (click)="doLogin()" >Login</button>
-	  Se non hai un account:
-	  <button ion-button color="primary" full (click)="doRegister()">Registrati</button>
+	  <button ion-button color="secondary" full (click)="doLogin()" >Login</button>
+	  <p>Se non hai un account:</p>
+	  <button ion-button color="primary"  (click)="doRegister()">Registrati</button>
   </div>
 
   <div *ngIf="!showLogin">
@@ -47,7 +47,7 @@
     <ion-item>
       <ion-input type="password" placeholder="Password" [(ngModel)]="password"></ion-input>
     </ion-item>
-    <button ion-button color="primary" full (click)="doRegister()">Registrati</button>
+    <button ion-button color="secondary" full (click)="doRegister()">Registrati</button>
   </div>
 
 

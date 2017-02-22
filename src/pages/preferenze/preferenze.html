@@ -9,6 +9,39 @@
     </button>
   </ion-navbar>
 </ion-header>
+
 <ion-content padding>
 
+<ion-card>
+  <ion-card-header color="secondary">
+    Seleziona Preferenze
+  </ion-card-header>
+
+		<ion-item>
+		  <ion-label>Categorie</ion-label>
+		  <ion-select   [(ngModel)]="preferenzaCategoria" multiple="true">
+		    <ion-option *ngFor="let categoria of categorie" value= {{categoria.id}}>{{categoria.name}}</ion-option>
+		  </ion-select>
+		</ion-item>
+
+		<ion-item>
+		  <ion-label>Provincie</ion-label>
+		  <ion-select   [(ngModel)]="preferenzaProvincia" multiple="true">
+		    <ion-option *ngFor="let provincia of provincie" value= {{provincia.id}}>{{provincia.name}}</ion-option>
+		  </ion-select>
+		</ion-item>
+
+
+
+        <ion-item>
+            <ion-label> Mail</ion-label>
+            <ion-checkbox checked="false" [(ngModel)]="preferenzaMail"></ion-checkbox>
+        </ion-item>
+
+        <ion-item>
+            <ion-label> Notifiche </ion-label>
+            <ion-checkbox checked="false" [(ngModel)]="preferenzaNotifica"></ion-checkbox>
+        </ion-item>
+<button ion-button color="primary" full (click)="salvePreferenze( preferenzaMail, preferenzaNotifica, preferenzaCategoria,  preferenzaProvincia)">Salva</button>
+</ion-card>
 </ion-content>

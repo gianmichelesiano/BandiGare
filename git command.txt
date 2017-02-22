@@ -1,5 +1,5 @@
 git status
 git add --all .
 git commit -m "Commento"
-git remote add origin https://github.com/gianmichelesiano/BandiGareApp.git
+// noo     git remote add origin https://github.com/gianmichelesiano/BandiGareApp.git
 git push -u origin master

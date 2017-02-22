@@ -14,6 +14,7 @@ import { RicercaPage } from '../pages/ricerca/ricerca';
 import { AvanzataPage } from '../pages/avanzata/avanzata';
 import { LoginPage } from '../pages/login/login';
 import { IntroPage } from '../pages/intro/intro';
+import { LogoutPage } from '../pages/logout/logout';
 
 
 
@@ -48,7 +49,8 @@ export class MyApp {
     ];
     this.pagesDestra = [
         { title: 'Aggiorna', component: AggiornaPage },
-        { title: 'Preferenze', component: PreferenzePage } 
+        { title: 'Preferenze', component: PreferenzePage },
+        { title: 'Logout', component: LogoutPage } 
     ];
   }
 
