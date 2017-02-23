@@ -79,12 +79,12 @@ doGraficoBarre(){
   for (let i=0; i<arrCategorie.length; i++) {
         let totRegioni = 0
         for (let j=0; j<arrRegioniCentro.length; j++) { 
-             console.log(arrCategorie[i]+arrRegioniCentro[j])
+            
               let arrTemp = [];
               arrTemp = this.gare.filter( function (el) { 
                   return el['value']['REGIONE'] == arrRegioniCentro[j] &&  el['value']['TIPOLOGIA'] == arrCategorie[i]
               })
-              console.log(arrTemp.length);
+            
               totRegioni = totRegioni  + arrTemp.length
         }
         if (i==0){  datiLavori.push(totRegioni);    }
@@ -97,12 +97,12 @@ doGraficoBarre(){
   for (let i=0; i<arrCategorie.length; i++) {
         let totRegioni = 0 
         for (let j=0; j<arrRegioniSud.length; j++) { 
-            console.log(arrCategorie[i]+arrRegioniSud[j])
+         
               let arrTemp = [];
               arrTemp = this.gare.filter( function (el) { 
                   return el['value']['REGIONE'] == arrRegioniSud[j] &&  el['value']['TIPOLOGIA'] == arrCategorie[i]
               })
-              console.log(arrTemp.length);
+          
               totRegioni = totRegioni  + arrTemp.length
         }
         if (i==0){  datiLavori.push(totRegioni);    }
