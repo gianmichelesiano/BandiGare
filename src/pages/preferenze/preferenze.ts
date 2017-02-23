@@ -7,6 +7,7 @@ import { Categoria } from '../../services/categoria';
 import { Provincia } from '../../services/provincia';
 
 
+
 @Component({
   selector: 'page-preferenze',
   templateUrl: 'preferenze.html',
@@ -79,7 +80,7 @@ export class PreferenzePage {
 	    message: 'Preferenze Salvate',
 	    duration: 2000,
 	    position: 'down'
-  	});
+  	  });
 	 toast.present();
   }
  }

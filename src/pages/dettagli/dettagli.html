@@ -1,18 +1,195 @@
-<!--
-  Generated template for the Dettagli page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>dettagli</ion-title>
+  <ion-navbar color="secondary">
+    <ion-title>Informazioni Gara</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-
 <ion-content padding>
+
+
+
+<ion-card>
+
+          <ion-card-header *ngIf="gara.value.ID">
+             <p ion-text color="primary">GARA n° {{gara.value.ID}}</p> 
+          </ion-card-header>
+         <ion-card-content>
+         <ion-row *ngIf="gara.value.OGGETTO">
+            <ion-col width-33>
+                <p  ion-text ion-text color="primary">Oggetto:</p>
+            </ion-col>
+            <ion-col width-67>
+              <p>{{gara.value.OGGETTO | capit}}</p>
+            </ion-col>
+          </ion-row>
+         
+         <ion-row *ngIf="gara.value.ENTE">
+            <ion-col width-33>
+             <p  ion-text ion-text color="primary">Ente:</p>
+            </ion-col>
+            <ion-col width-67>
+              <p>{{gara.value.ENTE | capit}}</p>
+            </ion-col>
+          </ion-row>
+
+         <ion-row *ngIf="gara.value.REGIONE">
+            <ion-col width-33>
+                <p ion-text color="primary">Regione:</p>
+            </ion-col>
+            <ion-col width-67>
+              <p>{{gara.value.REGIONE | capit }}</p>
+            </ion-col>
+          </ion-row>
+
+          <ion-row *ngIf="gara.value.PROVINCIA">
+            <ion-col width-33>
+                <p ion-text color="primary">Provincia:</p>
+            </ion-col>
+            <ion-col width-67>
+              <p>{{gara.value.PROVINCIA | provincie}}</p>
+            </ion-col>
+          </ion-row>
+
+          <ion-row *ngIf="gara.value.CITTA">
+            <ion-col width-33>
+                <p ion-text color="primary">Comune:</p>
+            </ion-col>
+            <ion-col width-67>
+              <p>{{gara.value.CITTA | capit}}</p>
+            </ion-col>
+          </ion-row>
+
+          <ion-row *ngIf="gara.value.IMPORTO">
+            <ion-col width-33>
+                <p ion-text color="primary">Importo:</p>
+            </ion-col>
+            <ion-col width-67>
+              <p>{{gara.value.IMPORTO  | importo | currency:'EUR' }}</p>
+            </ion-col>
+          </ion-row>
+
+          <ion-row *ngIf="gara.value.TIPOLOGIA">
+            <ion-col width-33>
+                <p ion-text color="primary">Tipologia:</p>
+            </ion-col>
+            <ion-col width-67>
+              <p>{{gara.value.TIPOLOGIA | capit}}</p>
+            </ion-col>
+          </ion-row>
+
+          <ion-row *ngIf="gara.value.PROCEDURA">
+            <ion-col width-33>
+                <p ion-text color="primary">Procedura:</p>
+            </ion-col>
+            <ion-col width-67>
+              <p>{{gara.value.PROCEDURA | capit}}</p>
+            </ion-col>
+          </ion-row>
+
+          <ion-row *ngIf="gara.value.DATA_INSERIMENTO">
+            <ion-col width-33>
+                <p ion-text color="primary">Data inserimento:</p>
+            </ion-col>
+            <ion-col width-67>
+              <p>{{gara.value.DATA_INSERIMENTO * 1000 | date}}</p>
+            </ion-col>
+          </ion-row>
+
+          <ion-row *ngIf="gara.value.DATA_PUBBLICAZIONE">
+            <ion-col width-33>
+                <p ion-text color="primary">Data Pubblicazione:</p>
+            </ion-col>
+            <ion-col width-67>
+              <p>{{gara.value.DATA_PUBBLICAZIONE * 1000 | date}}</p>
+            </ion-col>
+          </ion-row>
+
+          <ion-row *ngIf="gara.value.DATA_SCADENZA">
+            <ion-col width-33>
+                <p ion-text color="primary">Data Scadenza:</p>
+            </ion-col>
+            <ion-col width-67>
+              <p>{{gara.value.DATA_SCADENZA * 1000 | date}}</p>
+            </ion-col>
+          </ion-row>
+
+          <ion-row *ngIf="gara.value.CATEGORIA_PREVALENTE">
+            <ion-col width-33>
+                <p ion-text color="primary">Cat. Prev.:</p>
+            </ion-col>
+            <ion-col width-67>
+              <p>{{gara.value.CATEGORIA_PREVALENTE}}</p>
+            </ion-col>
+          </ion-row>
+
+          <ion-row *ngIf="gara.value.CATEGORIE_SCORPORABILI">
+            <ion-col width-33>
+                <p ion-text color="primary">Cat. Scorp.:</p>
+            </ion-col>
+            <ion-col width-67>
+              <p>{{gara.value.CATEGORIE_SCORPORABILI}}</p>
+            </ion-col>
+          </ion-row>
+
+    <ion-row>
+    <ion-col width-33 *ngIf="url">
+          <button  ion-button round outline color="secondary" (click)="openUrl(url)">Link al sito</button>
+    </ion-col>
+    <ion-col width-33 *ngIf="pdf">
+          <button  ion-button round outline color="secondary"(click)="openUrl(pdf)">Documento pdf</button>
+    </ion-col>
+    <ion-col width-33 *ngIf="anac">      
+        <button ion-button round outline color="secondary"(click)="openUrl(anac)">Sito anac</button>
+    </ion-col>
+    <ion-col width-33 *ngIf="bandiDiGara">
+      <button  ion-button round outline color="secondary" (click)="openUrl(bandiDiGara)">Bando di Gara</button>
+    </ion-col>
+    <ion-col width-33 *ngIf="disciplinare">
+      <button  ion-button round outline color="secondary" (click)="openUrl(disciplinare)">Disciplinare di Gara</button>
+    </ion-col>
+    <ion-col width-33 *ngIf="fascicolo">
+          <button  ion-button round outline color="secondary" (click)="openUrl(fascicolo)">Fascicolo</button>
+    </ion-col>
+        <ion-col width-33 *ngIf="sito_www">
+          <button  ion-button round outline color="secondary" (click)="openUrl(sito_www)">Link al sito ente</button>
+    </ion-col>
+        <ion-col width-33 *ngIf="sito_http">
+          <button  ion-button round outline color="secondary" (click)="openUrl(sito_http)">Link al sito ente</button>
+    </ion-col>
+        <ion-col width-33 *ngIf="sito_guri">
+          <button  ion-button round outline color="secondary" (click)="openUrl(sito_guri)">Sito Guri</button>
+    </ion-col>
+        <ion-col width-33 *ngIf="link">
+          <button  ion-button round outline color="secondary" (click)="openUrl(link)">Link al sito ente</button>
+    </ion-col>
+    </ion-row>
+
+<ion-row>
+    <ion-col width-25 >
+    </ion-col>
+    <ion-col width-75 >
+        <button ion-button clear small (click)="toggle(visible)" *ngIf="!visible" color="primary">
+                <ion-icon  name="thumbs-down" ></ion-icon>
+                <div>&nbsp;&nbsp; Segna come importante </div>
+        </button>
+        <button ion-button clear small (click)="toggle(visible)" *ngIf="visible" color="secondary">
+                <ion-icon color="secondary" name="thumbs-up" ></ion-icon>
+                <div  *ngIf="visible">&nbsp;&nbsp; Gara Importante</div>
+
+        </button>
+    </ion-col>
+
+
+
+
+          </ion-row>
+
+    </ion-card-content>
+</ion-card>
+
+
+
 
 </ion-content>

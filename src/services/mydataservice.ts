@@ -8,7 +8,7 @@ import { Regione } from './regioni';
 export class MyDataService {
   getTipologia() {
     return [
-     new Tipologia(0, 'Tutte le Tipologie' ),
+    
      new Tipologia(1, 'Lavori' ),
      new Tipologia(2, 'Servizi' ),
      new Tipologia(3, 'Forniture' )
@@ -17,7 +17,6 @@ export class MyDataService {
 
   getCategoria() {
     return [
-        new Categoria('TT', 0, 'Tutte le categorie' ),
 		new Categoria('OG1', 1, 'OG1 (Edifici civili e industriali)' ),
 		new Categoria('OG2', 1, 'OG2 (Restauro e manutenzione dei beni immobili sottoposti a tutela)' ),
 		new Categoria('OG3', 1, 'OG3 (Strade, autostrade, ponti, viadotti, ferrovie, metropolitane)' ),
@@ -120,7 +119,7 @@ export class MyDataService {
 
   getRegioni(){
   	return [
-  	    new Regione(0,  "Tutte le regioni" ),
+
 		new Regione(13,  "Piemonte" ),
 		new Regione(16,  "Valle d'Aosta" ),
 		new Regione(19,  "Lombardia" ),

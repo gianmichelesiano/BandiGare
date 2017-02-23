@@ -13,4 +13,136 @@
 
 <ion-content padding>
 
+<ion-card>
+  <ion-card-header color="secondary">
+    Ricerca
+  </ion-card-header>
+		<ion-item>
+		  <ion-label>Tipologia</ion-label>
+		  <ion-select  [(ngModel)]="selectedTipologia.id" (ionChange)="onSelectTipologia(selectedTipologia.id)">
+		    <ion-option *ngFor="let tipologia of tipologie" value= {{tipologia.id}}>{{tipologia.name}}</ion-option>
+		  </ion-select>
+		</ion-item>
+
+		<ion-item>
+		  <ion-label>Categoria</ion-label>
+		  <ion-select [(ngModel)]="selectedCategoria.id">
+		    <ion-option *ngIf='selectedTipologia.id == 0' value="0">--Tutte le tipologia--</ion-option>
+		    <ion-option *ngFor="let categoria of categorie " value= {{categoria.id}}>{{categoria.name}}</ion-option>
+		  </ion-select>
+		</ion-item>
+
+		<ion-item>
+		  <ion-label>Regioni</ion-label>
+		  <ion-select  [(ngModel)]="selectedRegione.id" (ionChange)="onSelectRegione(selectedRegione.id)">
+		    <ion-option *ngFor="let regione of regioni" value= {{regione.id}}>{{regione.name}}</ion-option>
+		  </ion-select>
+		</ion-item>
+
+		<ion-item>
+		  <ion-label>Provincie</ion-label>
+		  <ion-select [(ngModel)]="selectedProvincia.id">
+		    <ion-option *ngIf='selectedRegione.id == 0' value="0">-Selezione la regione --</ion-option>
+		    <ion-option *ngFor="let provincia of provincie" value= {{provincia.id}}>{{provincia.name}}</ion-option>
+		  </ion-select>
+		</ion-item>
+
+<button ion-button color="primary" full (click)="doRicerca( selectedTipologia.id, selectedCategoria.id, selectedRegione.id , selectedProvincia.id)">Cerca</button>
+</ion-card>
+
+
+
+
+
+<ion-list>
+  <ion-item *ngFor="let gara of gareFiltrate">
+      <ion-card>
+
+          <ion-card-header *ngIf="gara.value.ENTE">
+             <p ion-text color="primary">{{gara.value.ENTE}}</p> 
+          </ion-card-header>
+
+          <ion-card-header *ngIf="">
+             <p ion-text color="primary">ENTE</p> 
+          </ion-card-header>
+
+          <ion-card-content>
+           <ion-row>
+              <ion-col width-33 *ngIf="gara.value.REGIONE">
+                <ion-thumbnail item-left>
+                  <img src="assets/image/REGIONI/{{gara.value.REGIONE}}.png">
+                </ion-thumbnail>
+              </ion-col>
+
+              <ion-col width-67 color="primary">
+                   <ion-row *ngIf="gara.value.REGIONE">
+                      <ion-col width-50 ><p color="primary">Regione:</p></ion-col> 
+                      <ion-col><p>{{gara.value.REGIONE | truncatepiccolo: 40}}</p></ion-col>
+                  </ion-row>
+                   <ion-row *ngIf="gara.value.PROVINCIA">
+                      <ion-col width-50 ><p color="primary">Provincia:</p></ion-col>
+                      <ion-col><p>{{ gara.value.PROVINCIA | provincie}}</p></ion-col>
+                  </ion-row>
+                   <ion-row *ngIf="gara.value.CITTA">
+                      <ion-col width-50><p color="primary">Comune:</p></ion-col>
+                      <ion-col><p>{{ gara.value.CITTA | truncatepiccolo : 40}}</p></ion-col>
+                  </ion-row>
+                  <ion-row>
+                      <ion-col width-50 ><p color="primary">Data scad.:</p></ion-col>
+                      <ion-col><p>{{ gara.value.DATA_SCADENZA * 1000 | date}}</p></ion-col>
+                  </ion-row>
+              </ion-col>
+          </ion-row>
+
+          <ion-row *ngIf="gara.value.TIPOLOGIA">
+             <ion-col width-25 ><p color="primary">Tipologia:</p></ion-col>
+             <ion-col><p>&nbsp;&nbsp;{{ gara.value.TIPOLOGIA | truncate : 25}}</p></ion-col>
+          </ion-row> 
+
+          <ion-row *ngIf="gara.value.OGGETTO">
+            <ion-col width-25 ><p color="primary">Oggetto:</p></ion-col>
+            <ion-col><p>&nbsp;&nbsp;{{ gara.value.OGGETTO | truncate : 25}}</p></ion-col>
+          </ion-row> 
+
+          <ion-row *ngIf="gara.value.IMPORTO">
+            <ion-col width-25 ><p color="primary">Importo:</p></ion-col>
+            <ion-col><p>&nbsp;&nbsp;{{ gara.value.IMPORTO  | importo | currency:'EUR'  }}</p></ion-col>
+          </ion-row>
+
+          <ion-row *ngIf="gara.value.CATEGORIA_PREVALENTE">
+            <ion-col width-25 ><p color="primary">Cat. prev.:</p></ion-col>
+            <ion-col><p>&nbsp;&nbsp;{{ gara.value.CATEGORIA_PREVALENTE | truncate : 25}}</p></ion-col>
+          </ion-row> 
+
+          <ion-row>
+            <button ion-button full color="secondary" (click)="apriDettaglio(gara)">Dettagli Gara</button>
+          </ion-row>  
+
+          <ion-row>
+
+            <ion-col width-50>
+              <button ion-button icon-left clear small color="secondary">
+              <ion-icon name="star"></ion-icon>
+              <div>Importante</div>
+            </button>
+            </ion-col>
+
+
+            <ion-col width-50>
+              <button ion-button icon-right clear small color="secondary">
+                <ion-icon name="share"></ion-icon>
+                <div>&nbsp; Da leggere</div>
+              </button>
+            </ion-col>
+
+
+          </ion-row>
+          </ion-card-content>
+
+      </ion-card>
+    </ion-item>
+  </ion-list>
+
+
+
 </ion-content>

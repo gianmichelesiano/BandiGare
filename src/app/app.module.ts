@@ -1,6 +1,12 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
+import { Storage } from '@ionic/storage';
+import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
+import { AngularFireModule } from 'angularfire2';
+import { LOCALE_ID } from '@angular/core';
+import { ChartsModule } from 'ng2-charts/ng2-charts';
+
 import { Page1 } from '../pages/page1/page1';
 import { OggiPage } from '../pages/oggi/oggi';
 import { AggiornaPage } from '../pages/aggiorna/aggiorna';
@@ -13,10 +19,14 @@ import { AvanzataPage } from '../pages/avanzata/avanzata';
 import { LoginPage } from '../pages/login/login';
 import { IntroPage } from '../pages/intro/intro';
 import { LogoutPage } from '../pages/logout/logout';
-import { Storage } from '@ionic/storage';
-import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
-import { AngularFireModule } from 'angularfire2';
-import { LOCALE_ID } from '@angular/core';
+import { DettagliPage } from '../pages/dettagli/dettagli';
+
+
+import { TruncatePipe  } from './truncate.pipe';
+import { TruncatePiccoloPipe  } from './truncatepiccolo.pipe';
+import { ProvinciePipe } from './provincie.pipe';
+import { ImportoPipe } from './importo.pipe';
+import { CapitPipe } from './capit.pipe';
 
 
 export function provideStorage() {
@@ -53,12 +63,20 @@ export const firebaseConfig = {
     AvanzataPage,
     LoginPage,
     IntroPage,
-    LogoutPage
+    LogoutPage,
+    DettagliPage,
+
+    TruncatePipe,
+    TruncatePiccoloPipe,
+    ProvinciePipe,
+    ImportoPipe,
+    CapitPipe
   ],
   imports: [
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig),
-    CloudModule.forRoot(cloudSettings)
+    CloudModule.forRoot(cloudSettings),
+    ChartsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -74,7 +92,8 @@ export const firebaseConfig = {
     AvanzataPage,
     LoginPage,
     IntroPage,
-    LogoutPage
+    LogoutPage,
+    DettagliPage
   ],
     providers: [
               { provide: ErrorHandler, useClass: IonicErrorHandler},
