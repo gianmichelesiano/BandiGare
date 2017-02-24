@@ -3,6 +3,7 @@ import { NavController, NavParams, Platform } from 'ionic-angular';
 import { SocialSharing } from 'ionic-native';
 import {InAppBrowser} from 'ionic-native';
 import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
+import { User } from '@ionic/cloud-angular';
 
 @Component({
   selector: 'page-dettagli',
@@ -24,11 +25,26 @@ export class DettagliPage {
   sito_http:string;
   sito_guri:string;
   link:string;
+  visible : boolean;
 
   gareObjet: FirebaseObjectObservable<any>;
+  preferenzeSnap: FirebaseObjectObservable<any>;
+  garaImportante: FirebaseObjectObservable<any>;
 
-  constructor(public af: AngularFire, public navCtrl: NavController, public navParams: NavParams, public platform: Platform) {
+  constructor(public af: AngularFire, public user:User, public navCtrl: NavController, public navParams: NavParams, public platform: Platform) {
   	this.gara = navParams.get('gara');
+
+
+    this.visible = false;
+    //this.preferenzeSnap = af.database.object('/preferenze/'+user.id+'/importanti');
+    this.preferenzeSnap = af.database.object('/preferenze/'+user.id+'/importanti/'+this.gara.key, { preserveSnapshot: true });
+    this.preferenzeSnap.subscribe(snapshot => {
+                                    if (snapshot.val()){
+                                      this.visible = snapshot.val().valore;
+                                    }
+                                  });
+
+    
 
     if (this.gara.value.DOWNLOAD != ''){
       this.arrayDownload = JSON.parse(this.gara.value.DOWNLOAD);
@@ -71,13 +87,15 @@ export class DettagliPage {
 	    });
 	}
 
-  visible = false;
-  toggle(visible) {
-    //this.gareObjet = this.af.database.object('/gareAppoggio/'+gara.$key);  
-    //this.gareObjet.update({VISTE:!gara.VISTE});
+
+  
+  toggle(visible, gara) {
+    console.log(gara.key)
+    console.log(this.gareObjet)
     this.visible = !visible
-    console.log(this.visible)
-    return this.visible
+
+    this.preferenzeSnap.set({valore: this.visible});
+    return this.gara 
   }
 
 }

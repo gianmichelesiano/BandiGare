@@ -20,6 +20,7 @@ import { LoginPage } from '../pages/login/login';
 import { IntroPage } from '../pages/intro/intro';
 import { LogoutPage } from '../pages/logout/logout';
 import { DettagliPage } from '../pages/dettagli/dettagli';
+import { TemplateGarePage } from '../pages/template-gare/template-gare';
 
 
 import { TruncatePipe  } from './truncate.pipe';
@@ -65,6 +66,7 @@ export const firebaseConfig = {
     IntroPage,
     LogoutPage,
     DettagliPage,
+    TemplateGarePage,
 
     TruncatePipe,
     TruncatePiccoloPipe,
@@ -93,7 +95,8 @@ export const firebaseConfig = {
     LoginPage,
     IntroPage,
     LogoutPage,
-    DettagliPage
+    DettagliPage,
+    TemplateGarePage
   ],
     providers: [
               { provide: ErrorHandler, useClass: IonicErrorHandler},

@@ -6,6 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 @Pipe({name: 'importo'})
 export class ImportoPipe implements PipeTransform {
   transform(value: string) : string {
+    value =  value.replace("â‚","")
     value = value.replace(".","")
     let ret = ''
     let decimali = "00"

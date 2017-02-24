@@ -1,22 +1,120 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams,  LoadingController } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
+import { DettagliPage } from '../dettagli/dettagli'
+import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
+import { User } from '@ionic/cloud-angular';
 
-/*
-  Generated class for the Preferite page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-preferite',
-  templateUrl: 'preferite.html'
+  templateUrl: '../template-gare/template-gare.html'
 })
 export class PreferitePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  public gare = [];
+  public gareFiltrate = [];
+  public gareRicercate = [];
+  public categoriePreferite :any;
+  private titolo: string
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad PreferitePage');
+
+  preferenzeSnap: FirebaseObjectObservable<any>;
+  locVar:any;
+  numGareInfinite : number = 10;
+  visible : boolean = false;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, storage: Storage, public user:User, private af: AngularFire, public loadingCtrl:LoadingController) {
+    this.titolo = "Preferite";
+    storage.get('gareDB').then((val) => {
+      for (var key in val) {    
+            this.gare.push({key: key, value: val[key]});
+      }
+
+   	  this.preferenzeSnap = this.af.database.object('/preferenze/'+this.user.id, { preserveSnapshot: true });
+	    let loader = this.loadingCtrl.create({
+	    content: "Sto caricando le preferenze..."
+	  });
+	  loader.present();
+	  let preferenzaCategoria = [];
+  	  let preferenzaProvincia = [];
+      this.preferenzeSnap.subscribe(snapshot => {
+
+	    		this.locVar = snapshot.val();
+	    		if (this.locVar ==null) {
+	    			preferenzaCategoria = [];
+	    			preferenzaProvincia = [];
+
+	    		} else {
+	    			preferenzaCategoria = this.locVar['categoria'];
+	    			preferenzaProvincia = this.locVar['provincia'];
+
+	  			} 
+	  			loader.dismissAll();
+	  			console.log(preferenzaCategoria);
+				console.log(preferenzaProvincia);
+				for (let i=0; i<preferenzaCategoria.length; i++) {
+					for (let j=0; j<preferenzaProvincia.length; j++) { 
+						let gareTemp = []
+						console.log(preferenzaCategoria[i]+preferenzaProvincia[j])
+						gareTemp = this.gare.filter( function (el) { 
+    						return el['value']['PROVINCIA'] == preferenzaProvincia[j] && el['value']['CATEGORIA_PREVALENTE']== preferenzaCategoria[i]
+    					});
+    				console.log(gareTemp.length)
+    					this.gareRicercate = this.gareRicercate.concat(gareTemp);
+					}
+				}
+          if (this.numGareInfinite > this.gareRicercate.length){
+            this.numGareInfinite = this.gareRicercate.length
+          }
+          for (let i = 0; i < this.numGareInfinite; i++) {
+      				 this.gareFiltrate.push( this.gareRicercate[i]);
+    			}
+          console.log(this.gareFiltrate)
+	    });
+    })  
   }
 
+
+  apriDettaglio(gara){
+    this.navCtrl.push( DettagliPage, {
+      gara:gara
+    });
+  }
+
+
+  loadMore(infiniteScroll) {
+    console.log('Begin async operation');
+    let lung = this.gareFiltrate.length
+
+    console.log(lung)
+    console.log(this.gareRicercate.length)
+    console.log(this.numGareInfinite)
+
+
+    if (lung < this.gareRicercate.length){
+    	if (this.gareRicercate.length-lung<this.numGareInfinite  ){
+
+    		this.numGareInfinite = this.gareRicercate.length-lung
+	    	for (let i = lung; i < lung + this.numGareInfinite; i++) {
+		        this.gareFiltrate.push( this.gareRicercate[i] );
+		    }
+		    this.visible = true;
+		    infiniteScroll.enable(false);
+
+    	}
+  
+	    setTimeout(() => {
+	      for (let i = lung; i < lung + this.numGareInfinite; i++) {
+	        this.gareFiltrate.push( this.gareRicercate[i] );
+	      }
+
+	      console.log('Async operation has ended');
+	      infiniteScroll.complete();
+	    }, 500);
+	}
+  infiniteScroll.enable(false);
+  }
+
+
 }
+ 

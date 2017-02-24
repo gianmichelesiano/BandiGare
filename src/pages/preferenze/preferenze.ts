@@ -18,7 +18,7 @@ export class PreferenzePage {
 
  contac = [
   	{ mail:"mail",  checked: true},
-  	{notifica:"notifica",  checked: true}
+  	{ notifica:"notifica",  checked: true}
   ];
 
 

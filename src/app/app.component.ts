@@ -15,9 +15,7 @@ import { AvanzataPage } from '../pages/avanzata/avanzata';
 import { LoginPage } from '../pages/login/login';
 import { IntroPage } from '../pages/intro/intro';
 import { LogoutPage } from '../pages/logout/logout';
-
-
-
+import { TemplateGarePage } from '../pages/template-gare/template-gare';
 import { AggiornaPage } from '../pages/aggiorna/aggiorna';
 import { PreferenzePage } from '../pages/preferenze/preferenze';
 
@@ -38,18 +36,20 @@ export class MyApp {
     this.presentLoading();
 
     this.pages = [
-      { title: 'Tutte', component: Page1 },
+      { title: 'Home', component: Page1 },
+      { title: 'Ricerca', component: RicercaPage },
+      { title: 'Ricerca Avanzata', component: AvanzataPage },
+      { title: 'Importanti', component: ImportantiPage },
       { title: 'Ultime gare inserite', component: OggiPage },
       { title: 'Gare in scadenza', component: ScadenzaPage },
       { title: 'Preferite', component: PreferitePage },
-      { title: 'Importanti', component: ImportantiPage },
-      { title: 'Ricerca', component: RicercaPage },
-      { title: 'Ricerca Avanzata', component: AvanzataPage },
-
+      { title: 'Template Gare', component: TemplateGarePage },
+     
     ];
     this.pagesDestra = [
         { title: 'Aggiorna', component: AggiornaPage },
         { title: 'Preferenze', component: PreferenzePage },
+        { title: 'Come Funziona', component: IntroPage },
         { title: 'Logout', component: LogoutPage } 
     ];
   }

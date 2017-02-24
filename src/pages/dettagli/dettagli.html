@@ -10,7 +10,7 @@
 
 
 
-<ion-card>
+<ion-card >
 
           <ion-card-header *ngIf="gara.value.ID">
              <p ion-text color="primary">GARA n° {{gara.value.ID}}</p> 
@@ -170,13 +170,13 @@
     <ion-col width-25 >
     </ion-col>
     <ion-col width-75 >
-        <button ion-button clear small (click)="toggle(visible)" *ngIf="!visible" color="primary">
+        <button ion-button clear small (click)="toggle(visible, gara)" *ngIf="!visible" color="primary">
                 <ion-icon  name="thumbs-down" ></ion-icon>
-                <div>&nbsp;&nbsp; Segna come importante </div>
+                <div>&nbsp;&nbsp; Segna come important </div>
         </button>
-        <button ion-button clear small (click)="toggle(visible)" *ngIf="visible" color="secondary">
+        <button ion-button clear small (click)="toggle(visible, gara)" *ngIf="visible" color="secondary">
                 <ion-icon color="secondary" name="thumbs-up" ></ion-icon>
-                <div  *ngIf="visible">&nbsp;&nbsp; Gara Importante</div>
+                <div  >&nbsp;&nbsp; Gara Important</div>
 
         </button>
     </ion-col>
