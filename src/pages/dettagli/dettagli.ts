@@ -5,10 +5,13 @@ import {InAppBrowser} from 'ionic-native';
 import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
 import { User } from '@ionic/cloud-angular';
 
+declare var window: any;
+
 @Component({
   selector: 'page-dettagli',
   templateUrl: 'dettagli.html'
 })
+
 export class DettagliPage {
 
   gara:any;
@@ -31,13 +34,13 @@ export class DettagliPage {
   preferenzeSnap: FirebaseObjectObservable<any>;
   garaImportante: FirebaseObjectObservable<any>;
 
-  constructor(public af: AngularFire, public user:User, public navCtrl: NavController, public navParams: NavParams, public platform: Platform) {
+  constructor(public af: AngularFire, public user:User, public navCtrl: NavController, public navParams: NavParams, private platform: Platform) {
   	this.gara = navParams.get('gara');
 
-
+   
     this.visible = false;
     //this.preferenzeSnap = af.database.object('/preferenze/'+user.id+'/importanti');
-    this.preferenzeSnap = af.database.object('/preferenze/'+user.id+'/importanti/'+this.gara.key, { preserveSnapshot: true });
+    this.preferenzeSnap = af.database.object('/utenti/'+user.id+'/importanti/'+this.gara.key, { preserveSnapshot: true });
     this.preferenzeSnap.subscribe(snapshot => {
                                     if (snapshot.val()){
                                       this.visible = snapshot.val().valore;
@@ -72,12 +75,16 @@ export class DettagliPage {
     }
   }
 
-	openUrl(url) {
-	    url = url.replace("amp;","").replace('http://','').replace('https://','')
-	    this.platform.ready().then(() => {
-          open('//'+  url, "_blank", "location=no");
-	    });
-	} 
+  browser: InAppBrowser;
+  openUrl(url) {
+    console.log(url)
+          let options ='location=no,toolbar=yes,hidden=no';
+          this.browser= new InAppBrowser(url,'_blank',options);
+          //this.browser.show();
+  } 
+
+
+
 
 	condividi(){
 	    SocialSharing.shareViaEmail('Body', 'Subject', ['gianmichele.siano@gmail.com']).then(() => {

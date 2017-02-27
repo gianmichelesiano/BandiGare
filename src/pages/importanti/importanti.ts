@@ -31,40 +31,39 @@ export class ImportantiPage {
       }
     
     let loader = this.loadingCtrl.create({
-      content: "Sto caricando le preferenze..."
+      content: "Sto caricando le gare..."
     });
     loader.present();
 
     let arrRet= [];
     let arr= [];
     console.log("avvio")
-    this.preferenzeSnap = this.af.database.object('/preferenze/'+this.user.id+'/importanti/', { preserveSnapshot: true });
+    this.preferenzeSnap = this.af.database.object('/utenti/'+this.user.id+'/importanti/', { preserveSnapshot: true });
     this.preferenzeSnap.subscribe(snapshot => {
                         let gareImportanti = snapshot.val();
+                        console.log(gareImportanti)
                         for (var key in gareImportanti) {
                           if (gareImportanti[key].valore){
                               arr.push(key)
                           }
                         }
+                        
                         this.gareRicercate =   this.gare.filter(function(el){
                                 return arr.indexOf(el.key) > -1;
                         });
+                        if (this.numGareInfinite > this.gareRicercate.length){
+                              this.numGareInfinite = this.gareRicercate.length
+                        }
+                        for (let i = 0; i < this.numGareInfinite; i++) {
+                           this.gareFiltrate.push( this.gareRicercate[i]);
+                          
+                        }
                       });
-                      if (this.numGareInfinite > this.gareRicercate.length){
-                            this.numGareInfinite = this.gareRicercate.length
-                      }
-                      for (let i = 0; i < this.numGareInfinite; i++) {
-                         this.gareFiltrate.push( this.gareRicercate[i]);
-                         console.log(this.gareFiltrate.length)
-                      }
      loader.dismissAll();
 
     })
 
   }
-
-
-
 
   getGare() {
   	let arr = []

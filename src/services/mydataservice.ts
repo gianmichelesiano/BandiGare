@@ -69,6 +69,7 @@ export class MyDataService {
 		new Categoria('OS33', 1, 'OS33 (Coperture speciali)' ),
 		new Categoria('OS34', 1, 'OS34 (Sistemi antirumore per infrastrutture di mobilita' ),
 		new Categoria('OS35', 1, 'OS35 (Interventi a basso impatto ambientale)' ),
+		new Categoria('45', 1, 'Lavori di costruzione' ),
 		new Categoria('50', 2, 'Servizi di riparazione e manutenzione' ),
 		new Categoria('51', 2, 'Servizi di installazione' ),
 		new Categoria('55', 2, 'Servizi alberghieri' ),
@@ -112,7 +113,6 @@ export class MyDataService {
 		new Categoria('42', 3, 'Macchinari industriali' ),
 		new Categoria('43', 3, 'Macchine per l industria mineraria, lo scavo di cave, ' ),
 		new Categoria('44', 3, 'Strutture e materiali per costruzione, prodotti ausiliari per ' ),
-		new Categoria('45', 3, 'Lavori di costruzione' ),
 		new Categoria('48', 3, 'Pacchetti software e sistemi di informazione' )
     ];
   }

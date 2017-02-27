@@ -47,7 +47,7 @@ export class PreferenzePage {
 
 
 
-    this.preferenzeSnap = af.database.object('/preferenze/'+user.id, { preserveSnapshot: true });
+    this.preferenzeSnap = af.database.object('/utenti/'+this.user.id+'/preferenze/', { preserveSnapshot: true });
 
     let loader = this.loadingCtrl.create({
     content: "Sto caricando le preferenze..."
@@ -75,7 +75,7 @@ export class PreferenzePage {
 
 
   salvePreferenze( mail, notifiche, categoria, provincia ){
-  	this.preferenzeSnap.set({mail:mail, notifiche:notifiche,  categoria:categoria, provincia:provincia});
+  	  this.preferenzeSnap.set({mail:mail, notifiche:notifiche,  categoria:categoria, provincia:provincia});
 	  	let toast = this.toastCtrl.create({
 	    message: 'Preferenze Salvate',
 	    duration: 2000,

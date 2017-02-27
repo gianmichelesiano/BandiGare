@@ -68,8 +68,8 @@
           </ion-row>
 
           <ion-row *ngIf="gara.value.CATEGORIA_PREVALENTE">
-            <ion-col width-25 ><p ion-text color="primary">Cat. prev.:</p></ion-col>
-            <ion-col><p>&nbsp;&nbsp;{{ gara.value.CATEGORIA_PREVALENTE }}</p></ion-col>
+            <ion-col width-25 ><p ion-text color="primary">Categoria:</p></ion-col>
+            <ion-col><p>&nbsp;&nbsp;{{ gara.value.CATEGORIA_PREVALENTE | capit }}</p></ion-col>
           </ion-row> 
 
           <ion-row>

@@ -117,10 +117,10 @@
 
           <ion-row *ngIf="gara.value.CATEGORIA_PREVALENTE">
             <ion-col width-33>
-                <p ion-text color="primary">Cat. Prev.:</p>
+                <p ion-text color="primary">Categoria:</p>
             </ion-col>
             <ion-col width-67>
-              <p>{{gara.value.CATEGORIA_PREVALENTE}}</p>
+              <p>{{gara.value.CATEGORIA_PREVALENTE | capit}}</p>
             </ion-col>
           </ion-row>
 
@@ -133,37 +133,68 @@
             </ion-col>
           </ion-row>
 
-    <ion-row>
-    <ion-col width-33 *ngIf="url">
-          <button  ion-button round outline color="secondary" (click)="openUrl(url)">Link al sito</button>
-    </ion-col>
-    <ion-col width-33 *ngIf="pdf">
-          <button  ion-button round outline color="secondary"(click)="openUrl(pdf)">Documento pdf</button>
-    </ion-col>
-    <ion-col width-33 *ngIf="anac">      
-        <button ion-button round outline color="secondary"(click)="openUrl(anac)">Sito anac</button>
-    </ion-col>
-    <ion-col width-33 *ngIf="bandiDiGara">
-      <button  ion-button round outline color="secondary" (click)="openUrl(bandiDiGara)">Bando di Gara</button>
-    </ion-col>
-    <ion-col width-33 *ngIf="disciplinare">
-      <button  ion-button round outline color="secondary" (click)="openUrl(disciplinare)">Disciplinare di Gara</button>
-    </ion-col>
-    <ion-col width-33 *ngIf="fascicolo">
-          <button  ion-button round outline color="secondary" (click)="openUrl(fascicolo)">Fascicolo</button>
-    </ion-col>
-        <ion-col width-33 *ngIf="sito_www">
-          <button  ion-button round outline color="secondary" (click)="openUrl(sito_www)">Link al sito ente</button>
-    </ion-col>
-        <ion-col width-33 *ngIf="sito_http">
-          <button  ion-button round outline color="secondary" (click)="openUrl(sito_http)">Link al sito ente</button>
-    </ion-col>
-        <ion-col width-33 *ngIf="sito_guri">
-          <button  ion-button round outline color="secondary" (click)="openUrl(sito_guri)">Sito Guri</button>
-    </ion-col>
-        <ion-col width-33 *ngIf="link">
-          <button  ion-button round outline color="secondary" (click)="openUrl(link)">Link al sito ente</button>
-    </ion-col>
+
+
+    <ion-row *ngIf="url">
+      <ion-col >
+            <button  ion-button round outline color="secondary" (click)="openUrl(url)">Link al sito</button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="pdf">
+      <ion-col >
+            <button  ion-button round outline color="secondary" (click)="openUrl(pdf)">Documento pdf</button>
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row *ngIf="anac">
+      <ion-col >
+            <button  ion-button round outline color="secondary" (click)="openUrl(anac)">Sito anac</button>
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row *ngIf="bandiDiGara">
+      <ion-col >
+            <button  ion-button round outline color="secondary" (click)="openUrl(bandiDiGara)">Bando di Gara</button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="disciplinare">
+      <ion-col >
+            <button  ion-button round outline color="secondary" (click)="openUrl(disciplinare)">Disciplinare di Gara</button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="fascicolo">
+      <ion-col >
+            <button  ion-button round outline color="secondary" (click)="openUrl(fascicolo)">Fascicolo di Gara</button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="sito_www">
+      <ion-col >
+            <button  ion-button round outline color="secondary" (click)="openUrl(sito_www)">Link al sito</button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="sito_http">
+      <ion-col >
+            <button  ion-button round outline color="secondary" (click)="openUrl(sito_http)">Link al sito</button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="sito_guri">
+      <ion-col >
+            <button  ion-button round outline color="secondary" (click)="openUrl(sito_guri)">Sito Gazzetta Ufficiale</button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="link">
+      <ion-col >
+            <button  ion-button round outline color="secondary" (click)="openUrl(link)">Link al sito</button>
+      </ion-col>
     </ion-row>
 
 

@@ -30,7 +30,7 @@ export class PreferitePage {
             this.gare.push({key: key, value: val[key]});
       }
 
-   	  this.preferenzeSnap = this.af.database.object('/preferenze/'+this.user.id, { preserveSnapshot: true });
+   	  this.preferenzeSnap = this.af.database.object('/utenti/'+this.user.id+'/preferenze/', { preserveSnapshot: true });
 	    let loader = this.loadingCtrl.create({
 	    content: "Sto caricando le preferenze..."
 	  });
@@ -55,10 +55,19 @@ export class PreferitePage {
 				for (let i=0; i<preferenzaCategoria.length; i++) {
 					for (let j=0; j<preferenzaProvincia.length; j++) { 
 						let gareTemp = []
+
 						console.log(preferenzaCategoria[i]+preferenzaProvincia[j])
-						gareTemp = this.gare.filter( function (el) { 
-    						return el['value']['PROVINCIA'] == preferenzaProvincia[j] && el['value']['CATEGORIA_PREVALENTE']== preferenzaCategoria[i]
-    					});
+            console.log(preferenzaCategoria[i].length )
+            if (preferenzaCategoria[i].length == 2){
+              console.log("qua")
+              gareTemp = this.gare.filter( function (el) { 
+                return el['value']['PROVINCIA'] == preferenzaProvincia[j] && el['value']['CPV'].substring(0, 2)== preferenzaCategoria[i]
+              });
+            } else {
+              gareTemp = this.gare.filter( function (el) { 
+                return el['value']['PROVINCIA'] == preferenzaProvincia[j] && el['value']['CATEGORIA_PREVALENTE']== preferenzaCategoria[i]
+              });
+            }
     				console.log(gareTemp.length)
     					this.gareRicercate = this.gareRicercate.concat(gareTemp);
 					}
