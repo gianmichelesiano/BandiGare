@@ -85,12 +85,6 @@ export class PreferitePage {
   loadMore(infiniteScroll) {
     console.log('Begin async operation');
     let lung = this.gareFiltrate.length
-
-    console.log(lung)
-    console.log(this.gareRicercate.length)
-    console.log(this.numGareInfinite)
-
-
     if (lung < this.gareRicercate.length){
     	if (this.gareRicercate.length-lung<this.numGareInfinite  ){
 
