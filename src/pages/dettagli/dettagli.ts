@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, Platform } from 'ionic-angular';
+import { NavController, NavParams, Platform, AlertController  } from 'ionic-angular';
 import { SocialSharing } from 'ionic-native';
 import {InAppBrowser} from 'ionic-native';
 import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
 import { User } from '@ionic/cloud-angular';
+
 
 declare var window: any;
 
@@ -37,7 +38,10 @@ export class DettagliPage {
   preferenzeSnap: FirebaseObjectObservable<any>;
   garaImportante: FirebaseObjectObservable<any>;
 
-  constructor(public af: AngularFire, public user:User, public navCtrl: NavController, public navParams: NavParams, private platform: Platform) {
+
+
+
+  constructor(public af: AngularFire, public user:User, public navCtrl: NavController, public navParams: NavParams, private platform: Platform, public alertCtrl: AlertController) {
   	this.gara = navParams.get('gara');
 
    
@@ -92,7 +96,6 @@ export class DettagliPage {
            etichetta = "Fascicolo di gara";
            tipo = 'link'
         }  else {
-          let i = 0
           etichetta = "LINK" + i;
           tipo = 'link'
           i++
@@ -103,13 +106,22 @@ export class DettagliPage {
   }
 
   browser: InAppBrowser;
-  openUrl(url) {
+  openUrl(url, tipo) {
+          console.log(tipo)
+          if (tipo == 'link'){
+                let options ='location=no,toolbar=yes,hidden=no';
+                this.browser= new InAppBrowser(url,'_blank',options);
 
-          let options ='location=no,toolbar=yes,hidden=no';
-          this.browser= new InAppBrowser(url,'_blank',options);
-          //this.browser.show();
+          } else if  (tipo == 'download') {
+             let options ='location=no,toolbar=yes,hidden=no';
+             url = 'https://docs.google.com/viewer?url=' + encodeURIComponent(url);   
+             this.browser= new InAppBrowser(url,'_blank',options);
+             open(url, '_blank', 'location=no');
+
+          } else {
+            this.showAlert() 
+          }
   } 
-
 
 
 
@@ -131,6 +143,16 @@ export class DettagliPage {
     this.preferenzeSnap.set({valore: this.visible});
     return this.gara 
   }
+
+  showAlert() {
+    let alert = this.alertCtrl.create({
+      title: 'Attenzione!',
+      subTitle: 'Non è possibile aprire questo link',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
 
 }
 

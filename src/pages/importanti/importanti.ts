@@ -52,13 +52,8 @@ export class ImportantiPage {
                                 return arr.indexOf(el.key) > -1;
                         });
 
-
-                        console.log(this.gareRicercate.length)
-                        console.log(this.numGareInfinite)
-                        if (this.gareRicercate.length<this.numGareInfinite){
+                        if (this.gareRicercate.length<=this.numGareInfinite){
                           this.numGareInfinite = this.gareRicercate.length
-                          console.log('qua')
-                          console.log(this.numGareInfinite)
                           this.visible = true;
                         }
                         for (let i = 0; i < this.numGareInfinite; i++) {

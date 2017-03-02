@@ -40,7 +40,7 @@ export class OggiPage {
 
   getGare() {
   	let arr = []
-    if (this.gareOrdinate.length<this.numGareInfinite){
+    if (this.gareOrdinate.length<=this.numGareInfinite){
       this.numGareInfinite = this.gareOrdinate.length
       console.log(this.numGareInfinite)
       this.visible = true;

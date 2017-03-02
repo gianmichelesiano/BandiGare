@@ -67,15 +67,14 @@ export class PreferitePage {
     					this.gareRicercate = this.gareRicercate.concat(gareTemp);
 					}
 				}
-        
-          if (this.gareRicercate.length<this.numGareInfinite){
+
+          if (this.gareRicercate.length<=this.numGareInfinite){
             this.numGareInfinite = this.gareRicercate.length
             this.visible = true;
           }
           for (let i = 0; i < this.numGareInfinite; i++) {
       				 this.gareFiltrate.push( this.gareRicercate[i]);
     			}
-
 	    });
     })  
   }
