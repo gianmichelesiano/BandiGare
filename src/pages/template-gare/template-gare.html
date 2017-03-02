@@ -84,7 +84,7 @@
   </ion-list>
 <h2  ion-text color="secondary" *ngIf="visible">Non ci sono più gare</h2>
 
-  <ion-infinite-scroll (ionInfinite)="loadMore($event)">
+  <ion-infinite-scroll (ionInfinite)="loadMore($event)" *ngIf="!visible">
     <ion-infinite-scroll-content
       loadingSpinner="bubbles"
       loadingText="Altre gare...">

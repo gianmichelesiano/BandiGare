@@ -39,7 +39,13 @@ export class ScadenzaPage {
   }
 
   getGare() {
+
   	let arr = []
+    if (this.gareOrdinate.length<this.numGareInfinite){
+      this.numGareInfinite = this.gareOrdinate.length
+      console.log(this.numGareInfinite)
+      this.visible = true;
+    }
     for (let i = 0; i < this.numGareInfinite; i++) {
       arr.push( this.gareOrdinate[i]);
     }
@@ -68,7 +74,7 @@ export class ScadenzaPage {
           infiniteScroll.enable(false);
 
         }
-        console.log(this.numGareInfinite)
+        console.log(this.gareFiltrate.length)
         setTimeout(() => {
           for (let i = lung; i < lung + this.numGareInfinite; i++) {
             this.gareFiltrate.push( this.gareOrdinate[i] );
@@ -78,7 +84,7 @@ export class ScadenzaPage {
           infiniteScroll.complete();
         }, 500);
     }
-    infiniteScroll.enable(false);
+    //infiniteScroll.enable(false);
   }
 
 }

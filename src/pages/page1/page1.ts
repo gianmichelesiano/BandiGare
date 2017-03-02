@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, NavParams } from 'ionic-angular';
+import { NavController,  NavParams } from 'ionic-angular';
 import { Auth } from '@ionic/cloud-angular';
 import { LoginPage } from '../login/login'
 import { Storage } from '@ionic/storage';

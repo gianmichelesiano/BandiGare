@@ -16,6 +16,9 @@ export class DettagliPage {
 
   gara:any;
   arrayDownload:any;
+  public arrayRetDownload = [];
+
+  objectDownload:any;
   arrayInfoAggiuntive: any;
   
   url:string;
@@ -47,37 +50,61 @@ export class DettagliPage {
                                     }
                                   });
 
-    
+ //Object {SCHEMA DOM DI PARTECIPAZIONE: "https://www.serviziocontrattipubblici.it/PubbAvvis…egato.do?codice=144260&entita=BANDI_GARA&nr_doc=3", planimetria01: "https://www.serviziocontrattipubblici.it/PubbAvvis…egato.do?codice=144260&entita=BANDI_GARA&nr_doc=5", computo metrico: "https://www.serviziocontrattipubblici.it/PubbAvvis…egato.do?codice=144260&entita=BANDI_GARA&nr_doc=4", AVVISO DI RETTICA CIG: "https://www.serviziocontrattipubblici.it/PubbAvvis…egato.do?codice=144260&entita=BANDI_GARA&nr_doc=6", Bando di gara: "https://www.serviziocontrattipubblici.it/PubbAvvis…egato.do?codice=144260&entita=BANDI_GARA&nr_doc=1"…}
 
     if (this.gara.value.DOWNLOAD != ''){
-      this.arrayDownload = JSON.parse(this.gara.value.DOWNLOAD);
-      // ANAC
-      this.url = this.arrayDownload["url"];
-      this.pdf = this.arrayDownload["pdf"];
-      this.anac = this.arrayDownload["anac"];
-      // SCP
-      this.bandiDiGara = this.arrayDownload["Bando di gara"];
-      this.disciplinare = this.arrayDownload["Disciplinare di gara"];
-      this.fascicolo = this.arrayDownload["fascicolo"];
-    }
-
-    if (this.gara.value.INFO_AGGIUNTIVE != ''){
-      console.log(this.gara.value.INFO_AGGIUNTIVE);
-      this.arrayInfoAggiuntive = JSON.parse(this.gara.value.INFO_AGGIUNTIVE);
-      console.log(this.arrayInfoAggiuntive["sito_www"]);
-      console.log(this.arrayInfoAggiuntive["sito_guri"]);
-      //GURI
-      this.sito_www = this.arrayInfoAggiuntive["sito_www"];
-      this.sito_http = this.arrayInfoAggiuntive["sito_http"];
-      this.sito_guri = this.arrayInfoAggiuntive["sito_guri"];
-      //ETRU
-      this.link = this.arrayInfoAggiuntive["link"];
+      let i = 0
+      this.objectDownload = JSON.parse(this.gara.value.DOWNLOAD);
+      let etichetta = ''
+      let tipo = 'link'
+      for (var key in this.objectDownload) {
+        if (key.toUpperCase().includes('AVVISO')){
+          etichetta = "Avviso";
+          tipo = 'download'
+        } else if (key.toUpperCase().includes('DISCIP')){
+              etichetta = "Disciplinare di gara";
+              tipo = 'download'
+        } else if (key.toUpperCase().includes('BANDO')){
+           etichetta = "Bando di gara";
+           tipo = 'download'
+        } else if (key.toUpperCase().includes('RETTI')){
+           etichetta = "Rettifica";
+           tipo = 'download'
+        } else if (key.toUpperCase().includes('SCHEMA')){
+           etichetta = "Schema di gara";
+           tipo = 'download'
+        } else if (key.toUpperCase().includes('PLANIM')){
+           etichetta = "Planimetria";
+           tipo = 'download'
+        }  else if (key.toUpperCase().includes('COMPUT')){
+           etichetta = "Computo Metrico";
+           tipo = 'download'
+        }  else if (key.toUpperCase().includes('PDF')){
+           etichetta = "Documemento";
+           tipo = 'download'
+        }  else if (key.toUpperCase().includes('URL')){
+           etichetta = "Apri sito web";
+           tipo = 'link'
+        }  else if (key.toUpperCase().includes('ANAC')){
+           etichetta = "Pagina ANAC";
+           tipo = 'link'
+        } else if (key.toUpperCase().includes('FASCICOLO')){
+           etichetta = "Fascicolo di gara";
+           tipo = 'link'
+        }  else {
+          let i = 0
+          etichetta = "LINK" + i;
+          tipo = 'link'
+          i++
+        }
+        this.arrayRetDownload.push({chiave:etichetta, valore : this.objectDownload[key], tipo: tipo})
+      }
     }
   }
 
   browser: InAppBrowser;
   openUrl(url) {
-    console.log(url)
+
           let options ='location=no,toolbar=yes,hidden=no';
           this.browser= new InAppBrowser(url,'_blank',options);
           //this.browser.show();

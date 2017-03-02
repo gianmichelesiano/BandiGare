@@ -11,13 +11,14 @@ import { ScadenzaPage } from '../pages/scadenza/scadenza';
 import { PreferitePage } from '../pages/preferite/preferite';
 import { ImportantiPage } from '../pages/importanti/importanti';
 import { RicercaPage } from '../pages/ricerca/ricerca';
-import { AvanzataPage } from '../pages/avanzata/avanzata';
+
 import { LoginPage } from '../pages/login/login';
 import { IntroPage } from '../pages/intro/intro';
 import { LogoutPage } from '../pages/logout/logout';
-import { TemplateGarePage } from '../pages/template-gare/template-gare';
+
 import { AggiornaPage } from '../pages/aggiorna/aggiorna';
 import { PreferenzePage } from '../pages/preferenze/preferenze';
+
 
 @Component({ 
   templateUrl: 'app.html'
@@ -38,13 +39,10 @@ export class MyApp {
     this.pages = [
       { title: 'Home', component: Page1 },
       { title: 'Ricerca', component: RicercaPage },
-      { title: 'Ricerca Avanzata', component: AvanzataPage },
-      { title: 'Importanti', component: ImportantiPage },
+      { title: 'Gare importanti', component: ImportantiPage },
+      { title: 'Gare preferite', component: PreferitePage },
       { title: 'Ultime gare inserite', component: OggiPage },
-      { title: 'Gare in scadenza', component: ScadenzaPage },
-      { title: 'Preferite', component: PreferitePage },
-      { title: 'Template Gare', component: TemplateGarePage },
-     
+      { title: 'Gare in scadenza', component: ScadenzaPage },     
     ];
     this.pagesDestra = [
         { title: 'Aggiorna', component: AggiornaPage },
@@ -67,7 +65,8 @@ export class MyApp {
       //this.storage.set('introShown', false);
       if(result){
         if(this.auth.isAuthenticated()) {
-          this.rootPage = Page1;
+          //this.rootPage = Page1;
+          this.rootPage = AggiornaPage;
         } else {
           this.rootPage = LoginPage;
         }

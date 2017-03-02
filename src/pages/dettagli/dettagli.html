@@ -135,83 +135,32 @@
 
 
 
-    <ion-row *ngIf="url">
-      <ion-col >
-            <button  ion-button round outline color="secondary" (click)="openUrl(url)">Link al sito</button>
-      </ion-col>
-    </ion-row>
 
-    <ion-row *ngIf="pdf">
-      <ion-col >
-            <button  ion-button round outline color="secondary" (click)="openUrl(pdf)">Documento pdf</button>
-      </ion-col>
-    </ion-row>
+    <ion-item-group>
+        <ion-item-divider color="light" *ngIf="arrayRetDownload.length>0">Risore aggiuntive</ion-item-divider>
+      <ion-list >  
+        <ion-item *ngFor="let link of arrayRetDownload">
+            <p  ion-text ion-text color="primary">{{link.chiave}}</p>
+                  <button  ion-button outline item-right icon-left color="secondary" (click)="openUrl(link.valore)">
+                  <ion-icon name="download" *ngIf="link.tipo=='download'">&nbsp;{{link.tipo}}</ion-icon>
+                  <ion-icon name="arrow-dropright-circle" *ngIf="link.tipo=='link'">&nbsp;{{link.tipo}}</ion-icon>
+                  </button>
+        </ion-item>
+      </ion-list>
+    </ion-item-group>
+      <ion-row>
+            <ion-item>
+              <button ion-button icon-left clear item-right (click)="toggle(visible, gara)" *ngIf="!visible" color="primary">
+                <ion-icon name="thumbs-down"></ion-icon>
+                Segna come importante
+              </button>
+              <button ion-button icon-left clear item-right (click)="toggle(visible, gara)" *ngIf="visible" color="secondary">
+                <ion-icon name="thumbs-up"></ion-icon>
+                Gara Importante
+              </button>
+            </ion-item>
+      </ion-row>
 
-
-    <ion-row *ngIf="anac">
-      <ion-col >
-            <button  ion-button round outline color="secondary" (click)="openUrl(anac)">Sito anac</button>
-      </ion-col>
-    </ion-row>
-
-
-    <ion-row *ngIf="bandiDiGara">
-      <ion-col >
-            <button  ion-button round outline color="secondary" (click)="openUrl(bandiDiGara)">Bando di Gara</button>
-      </ion-col>
-    </ion-row>
-
-    <ion-row *ngIf="disciplinare">
-      <ion-col >
-            <button  ion-button round outline color="secondary" (click)="openUrl(disciplinare)">Disciplinare di Gara</button>
-      </ion-col>
-    </ion-row>
-
-    <ion-row *ngIf="fascicolo">
-      <ion-col >
-            <button  ion-button round outline color="secondary" (click)="openUrl(fascicolo)">Fascicolo di Gara</button>
-      </ion-col>
-    </ion-row>
-
-    <ion-row *ngIf="sito_www">
-      <ion-col >
-            <button  ion-button round outline color="secondary" (click)="openUrl(sito_www)">Link al sito</button>
-      </ion-col>
-    </ion-row>
-
-    <ion-row *ngIf="sito_http">
-      <ion-col >
-            <button  ion-button round outline color="secondary" (click)="openUrl(sito_http)">Link al sito</button>
-      </ion-col>
-    </ion-row>
-
-    <ion-row *ngIf="sito_guri">
-      <ion-col >
-            <button  ion-button round outline color="secondary" (click)="openUrl(sito_guri)">Sito Gazzetta Ufficiale</button>
-      </ion-col>
-    </ion-row>
-
-    <ion-row *ngIf="link">
-      <ion-col >
-            <button  ion-button round outline color="secondary" (click)="openUrl(link)">Link al sito</button>
-      </ion-col>
-    </ion-row>
-
-
-    <ion-row>
-      <ion-item>
-
-        <button ion-button icon-left clear item-right (click)="toggle(visible, gara)" *ngIf="!visible" color="primary">
-          <ion-icon name="thumbs-down"></ion-icon>
-          Segna come importante
-        </button>
-
-        <button ion-button icon-left clear item-right (click)="toggle(visible, gara)" *ngIf="visible" color="secondary">
-          <ion-icon name="thumbs-up"></ion-icon>
-          Gara Importante
-        </button>
-      </ion-item>
-    </ion-row>
     </ion-card-content>
 </ion-card>
 

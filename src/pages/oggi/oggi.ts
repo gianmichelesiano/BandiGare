@@ -21,8 +21,11 @@ export class OggiPage {
       for (var key in val) {    
             this.gare.push({key: key, value: val[key]});
       }
+      console.log(this.gare)
       this.gareOrdinate = this.ordinaGare();
+      console.log('1')
       this.gareFiltrate = this.getGare();
+      console.log('2')
     })
 
   }
@@ -37,6 +40,11 @@ export class OggiPage {
 
   getGare() {
   	let arr = []
+    if (this.gareOrdinate.length<this.numGareInfinite){
+      this.numGareInfinite = this.gareOrdinate.length
+      console.log(this.numGareInfinite)
+      this.visible = true;
+    }
     for (let i = 0; i < this.numGareInfinite; i++) {
       arr.push( this.gareOrdinate[i]);
     }
@@ -65,7 +73,7 @@ export class OggiPage {
         infiniteScroll.enable(false);
 
       }
-      console.log(this.numGareInfinite)
+      console.log(this.gareFiltrate.length)
       setTimeout(() => {
         for (let i = lung; i < lung + this.numGareInfinite; i++) {
           this.gareFiltrate.push( this.gareOrdinate[i] );
@@ -75,7 +83,7 @@ export class OggiPage {
         infiniteScroll.complete();
       }, 500);
     }
-    infiniteScroll.enable(false);
+    //infiniteScroll.enable(false);
   }
 
 

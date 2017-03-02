@@ -50,16 +50,12 @@ export class PreferitePage {
 
 	  			} 
 	  			loader.dismissAll();
-	  			console.log(preferenzaCategoria);
-				console.log(preferenzaProvincia);
 				for (let i=0; i<preferenzaCategoria.length; i++) {
 					for (let j=0; j<preferenzaProvincia.length; j++) { 
 						let gareTemp = []
 
-						console.log(preferenzaCategoria[i]+preferenzaProvincia[j])
-            console.log(preferenzaCategoria[i].length )
             if (preferenzaCategoria[i].length == 2){
-              console.log("qua")
+
               gareTemp = this.gare.filter( function (el) { 
                 return el['value']['PROVINCIA'] == preferenzaProvincia[j] && el['value']['CPV'].substring(0, 2)== preferenzaCategoria[i]
               });
@@ -68,17 +64,18 @@ export class PreferitePage {
                 return el['value']['PROVINCIA'] == preferenzaProvincia[j] && el['value']['CATEGORIA_PREVALENTE']== preferenzaCategoria[i]
               });
             }
-    				console.log(gareTemp.length)
     					this.gareRicercate = this.gareRicercate.concat(gareTemp);
 					}
 				}
-          if (this.numGareInfinite > this.gareRicercate.length){
+        
+          if (this.gareRicercate.length<this.numGareInfinite){
             this.numGareInfinite = this.gareRicercate.length
+            this.visible = true;
           }
           for (let i = 0; i < this.numGareInfinite; i++) {
       				 this.gareFiltrate.push( this.gareRicercate[i]);
     			}
-          console.log(this.gareFiltrate)
+
 	    });
     })  
   }
@@ -115,7 +112,7 @@ export class PreferitePage {
 	      infiniteScroll.complete();
 	    }, 500);
 	}
-  infiniteScroll.enable(false);
+  //infiniteScroll.enable(false);
   }
 
 

@@ -11,6 +11,8 @@ import { Provincia } from '../../services/provincia';
 import { DettagliPage } from '../dettagli/dettagli'
 
 
+
+
 @Component({
   selector: 'page-ricerca',
   templateUrl: 'ricerca.html',
@@ -21,6 +23,7 @@ export class RicercaPage {
   categoria:string = '';
   regione:string = '';
   provincia:string = '';
+
 
   selectedTipologia:Tipologia = new Tipologia(0, ''); 
   selectedCategoria:Categoria = new Categoria('TT', 0, '');
@@ -38,6 +41,7 @@ export class RicercaPage {
   public gare = [];
   public gareFiltrate = [];
   public gareRicercate = [];
+  public gareOrdinate = [];
   public gareFiltrateCategorie = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private _mydataService: MyDataService, storage: Storage, private toastCtrl: ToastController) {
@@ -60,7 +64,7 @@ export class RicercaPage {
     this.provincie = this._mydataService.getProvincia().filter((item)=> item.regioneid == regioneid);
   }
 
-  doRicerca(tipologiaId, categoriaId, regioneId, provinciaId){
+ doRicerca(tipologiaId, categoriaId, regioneId, provinciaId){
     this.gareFiltrate = [];
     console.log(tipologiaId, categoriaId, regioneId, provinciaId)
 
@@ -87,9 +91,6 @@ export class RicercaPage {
           return el['value']['TIPOLOGIA'].toUpperCase() == tipologiaRicerca.toUpperCase()
       })
     }
-    console.log("this.gareFiltrateCategorie");
-    console.log(this.gareFiltrateCategorie.length);
-    console.log(tipologiaId, categoriaId, regioneId, provinciaId)
     if (provinciaId == 'TT' && regioneId > 0  ) {
       let regioneRicerca = '';
       for (let i=0; i<this.regioni.length; i++) {
@@ -109,22 +110,59 @@ export class RicercaPage {
     }
 
    if  (this.gareRicercate.length == 0  && boolVal==true){
-   	  let toast = this.toastCtrl.create({
-	    message: 'Nessuna gara trovata',
-	    duration: 2000,
-	    position: 'middle'
-  	  });
-	  toast.present();
+       let toast = this.toastCtrl.create({
+      message: 'Nessuna gara trovata',
+      duration: 2000,
+      position: 'middle'
+      });
+    toast.present();
    }
 
-    this.gareFiltrate = this.gareRicercate
-    return this.gareFiltrate;
+
+    this.gareOrdinate = this.gareRicercate
+    if (this.gareOrdinate.length<this.numGareInfinite){
+      this.numGareInfinite = this.gareOrdinate.length
+      console.log(this.numGareInfinite)
+      this.visible = true;
+    }
+    for (let i = 0; i < this.numGareInfinite; i++) {
+      this.gareFiltrate.push( this.gareOrdinate[i]);
+    }
+
   }
 
   apriDettaglio(gara){
     this.navCtrl.push( DettagliPage, {
       gara:gara
     });
+  }
+
+  loadMore(infiniteScroll) {
+      console.log('Begin async operation');
+      let lung = this.gareFiltrate.length
+
+      if (lung < this.gareOrdinate.length){
+        if (this.gareOrdinate.length-lung<this.numGareInfinite){
+          console.log(this.numGareInfinite)
+          this.numGareInfinite = this.gareOrdinate.length-lung
+          for (let i = lung; i < lung + this.numGareInfinite; i++) {
+              this.gareFiltrate.push( this.gareOrdinate[i] );
+          }
+          this.visible = true;
+          infiniteScroll.enable(false);
+
+        }
+        console.log(this.gareFiltrate.length)
+        setTimeout(() => {
+          for (let i = lung; i < lung + this.numGareInfinite; i++) {
+            this.gareFiltrate.push( this.gareOrdinate[i] );
+          }
+
+          console.log('Async operation has ended');
+          infiniteScroll.complete();
+        }, 500);
+    }
+    //infiniteScroll.enable(false);
   }
 
 

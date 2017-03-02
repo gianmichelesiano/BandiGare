@@ -2,8 +2,10 @@ import { Component } from '@angular/core';
 import { NavController, AlertController, LoadingController } from 'ionic-angular';
 import { Auth, User, UserDetails, IDetailedError } from '@ionic/cloud-angular';
 import { Page1 } from '../page1/page1'
+import { AggiornaPage } from '../aggiorna/aggiorna'
 
 /*
+
   Generated class for the Login page.
 
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
@@ -52,7 +54,7 @@ export class LoginPage {
       this.auth.login('basic', {'email':this.email, 'password':this.password}).then(() => {
         console.log('ok i guess?');
         loader.dismissAll();
-        this.navCtrl.setRoot(Page1);        
+        this.navCtrl.setRoot(AggiornaPage);        
       }, (err) => {
         loader.dismissAll();
         console.log(err.message);
@@ -102,7 +104,7 @@ export class LoginPage {
         console.log('ok signup');
         this.auth.login('basic', {'email':details.email, 'password':details.password}).then(() => {
           loader.dismissAll();
-          this.navCtrl.setRoot(Page1);
+          this.navCtrl.setRoot(AggiornaPage);
         });
 
       }, (err:IDetailedError<string[]>) => {

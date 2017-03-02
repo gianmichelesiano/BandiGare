@@ -35,7 +35,7 @@ export class ImportantiPage {
     });
     loader.present();
 
-    let arrRet= [];
+
     let arr= [];
     console.log("avvio")
     this.preferenzeSnap = this.af.database.object('/utenti/'+this.user.id+'/importanti/', { preserveSnapshot: true });
@@ -51,8 +51,15 @@ export class ImportantiPage {
                         this.gareRicercate =   this.gare.filter(function(el){
                                 return arr.indexOf(el.key) > -1;
                         });
-                        if (this.numGareInfinite > this.gareRicercate.length){
-                              this.numGareInfinite = this.gareRicercate.length
+
+
+                        console.log(this.gareRicercate.length)
+                        console.log(this.numGareInfinite)
+                        if (this.gareRicercate.length<this.numGareInfinite){
+                          this.numGareInfinite = this.gareRicercate.length
+                          console.log('qua')
+                          console.log(this.numGareInfinite)
+                          this.visible = true;
                         }
                         for (let i = 0; i < this.numGareInfinite; i++) {
                            this.gareFiltrate.push( this.gareRicercate[i]);
@@ -65,13 +72,7 @@ export class ImportantiPage {
 
   }
 
-  getGare() {
-  	let arr = []
-    for (let i = 0; i < this.numGareInfinite; i++) {
-      arr.push( this.gare[i]);
-    }
-    return arr
-  }
+
 
   apriDettaglio(gara){
     this.navCtrl.push( DettagliPage, {
@@ -104,7 +105,7 @@ export class ImportantiPage {
         infiniteScroll.complete();
       }, 500);
   }
-  infiniteScroll.enable(false);
+  //infiniteScroll.enable(false);
   }
 
 }
