@@ -19,19 +19,14 @@ export class DettagliPage {
   arrayDownload:any;
   public arrayRetDownload = [];
 
+
   objectDownload:any;
   arrayInfoAggiuntive: any;
+
+  objectInfoAggiuntive:any;
   
-  url:string;
-  pdf:string;
-  anac:string;
-  bandiDiGara:string;
-  disciplinare:string;
-  fascicolo:string;
-  sito_www:string;
-  sito_http:string;
-  sito_guri:string;
-  link:string;
+  mail:string;
+
   visible : boolean;
 
   gareObjet: FirebaseObjectObservable<any>;
@@ -55,37 +50,37 @@ export class DettagliPage {
                                   });
 
  //Object {SCHEMA DOM DI PARTECIPAZIONE: "https://www.serviziocontrattipubblici.it/PubbAvvis…egato.do?codice=144260&entita=BANDI_GARA&nr_doc=3", planimetria01: "https://www.serviziocontrattipubblici.it/PubbAvvis…egato.do?codice=144260&entita=BANDI_GARA&nr_doc=5", computo metrico: "https://www.serviziocontrattipubblici.it/PubbAvvis…egato.do?codice=144260&entita=BANDI_GARA&nr_doc=4", AVVISO DI RETTICA CIG: "https://www.serviziocontrattipubblici.it/PubbAvvis…egato.do?codice=144260&entita=BANDI_GARA&nr_doc=6", Bando di gara: "https://www.serviziocontrattipubblici.it/PubbAvvis…egato.do?codice=144260&entita=BANDI_GARA&nr_doc=1"…}
-
+    let etichetta = 'Link'
+    let tipo = 'link'
     if (this.gara.value.DOWNLOAD != ''){
       let i = 0
       this.objectDownload = JSON.parse(this.gara.value.DOWNLOAD);
-      let etichetta = ''
-      let tipo = 'link'
+
       for (var key in this.objectDownload) {
         if (key.toUpperCase().includes('AVVISO')){
           etichetta = "Avviso";
-          tipo = 'download'
+          tipo = 'documento'
         } else if (key.toUpperCase().includes('DISCIP')){
               etichetta = "Disciplinare di gara";
-              tipo = 'download'
+              tipo = 'documento'
         } else if (key.toUpperCase().includes('BANDO')){
            etichetta = "Bando di gara";
-           tipo = 'download'
+           tipo = 'documento'
         } else if (key.toUpperCase().includes('RETTI')){
            etichetta = "Rettifica";
-           tipo = 'download'
+           tipo = 'documento'
         } else if (key.toUpperCase().includes('SCHEMA')){
            etichetta = "Schema di gara";
-           tipo = 'download'
+           tipo = 'documento'
         } else if (key.toUpperCase().includes('PLANIM')){
            etichetta = "Planimetria";
-           tipo = 'download'
+           tipo = 'documento'
         }  else if (key.toUpperCase().includes('COMPUT')){
            etichetta = "Computo Metrico";
-           tipo = 'download'
+           tipo = 'documento'
         }  else if (key.toUpperCase().includes('PDF')){
            etichetta = "Documemento";
-           tipo = 'download'
+           tipo = 'documento'
         }  else if (key.toUpperCase().includes('URL')){
            etichetta = "Apri sito web";
            tipo = 'link'
@@ -100,15 +95,57 @@ export class DettagliPage {
           tipo = 'link'
           i++
         }
-        this.arrayRetDownload.push({chiave:etichetta, valore : this.objectDownload[key], tipo: tipo})
+        if (this.objectDownload[key] != '') {
+          this.arrayRetDownload.push({chiave:etichetta, valore : this.objectDownload[key], tipo: tipo})
+        }
       }
     }
+    // Aggiungere ingo aggiuntive
+    if (this.gara.value.INFO_AGGIUNTIVE != '{}' || this.gara.value.INFO_AGGIUNTIVE != ''){
+   
+      
+       this.objectInfoAggiuntive = JSON.parse(this.gara.value.INFO_AGGIUNTIVE);
+       for (var key in this.objectInfoAggiuntive) {
+         if (key.toUpperCase().includes('MAIL')){
+               this.mail = this.objectInfoAggiuntive[key]
+               console.log('mail')
+         } else {
+              if (key.toUpperCase().includes('LINK')){
+                etichetta = "Apri sito web";
+                tipo = 'link'
+              } else if (key.toUpperCase().includes('SITO_GURI')){
+                 etichetta = "Gazzetta Ufficiale";
+                 tipo = 'link'
+              } else if (key.toUpperCase().includes('SITO_WWW')){
+                 etichetta = "Apri sito web";
+                 tipo = 'link'
+              }  else if (key.toUpperCase().includes('SITO_HTTP')){
+                 etichetta = "Apri sito web";
+                 tipo = 'link'
+              }  else {
+                console.log('non ce risorsa aggiuntiva')
+              }
+              if (this.objectInfoAggiuntive[key] != '' && this.arrayRetDownload['valore'] != this.objectInfoAggiuntive[key]) {
+               this.arrayRetDownload.push({chiave:etichetta, valore : this.objectInfoAggiuntive[key], tipo: tipo})
+              }
+         }
+
+       }
+    } 
+
   }
 
   browser: InAppBrowser;
   openUrl(url, tipo) {
           console.log(tipo)
           if (tipo == 'link'){
+
+                let prefix = 'http://';
+                if (url.substr(0, prefix.length) !== prefix)
+                {
+                    url = prefix + url;
+                }
+
                 let options ='location=no,toolbar=yes,hidden=no';
                 this.browser= new InAppBrowser(url,'_blank',options);
 

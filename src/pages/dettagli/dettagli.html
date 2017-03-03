@@ -57,7 +57,7 @@
                 <p ion-text color="primary">Comune:</p>
             </ion-col>
             <ion-col width-67>
-              <p>{{gara.value.CITTA | capit}}</p>
+              <p>{{gara.value.CITTA | capit }}</p>
             </ion-col>
           </ion-row>
 
@@ -129,7 +129,17 @@
                 <p ion-text color="primary">Cat. Scorp.:</p>
             </ion-col>
             <ion-col width-67>
-              <p>{{gara.value.CATEGORIE_SCORPORABILI}}</p>
+              <p>{{gara.value.CATEGORIE_SCORPORABILI | scorporabili }}</p>
+            </ion-col>
+          </ion-row>
+
+
+          <ion-row *ngIf="mail">
+            <ion-col width-33>
+                <p ion-text color="primary">e-mail:</p>
+            </ion-col>
+            <ion-col width-67>
+              <p>{{mail}}</p>
             </ion-col>
           </ion-row>
 
@@ -145,6 +155,7 @@
                   <ion-icon name="download" *ngIf="link.tipo=='download'">&nbsp;{{link.tipo}}</ion-icon>
                   <ion-icon name="arrow-dropright-circle" *ngIf="link.tipo=='link'">&nbsp;{{link.tipo}}</ion-icon>
                   </button>
+        
         </ion-item>
       </ion-list>
     </ion-item-group>

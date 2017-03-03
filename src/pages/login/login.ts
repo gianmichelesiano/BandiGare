@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController, LoadingController } from 'ionic-angular';
 import { Auth, User, UserDetails, IDetailedError } from '@ionic/cloud-angular';
-import { Page1 } from '../page1/page1'
+//import { Page1 } from '../page1/page1'
 import { AggiornaPage } from '../aggiorna/aggiorna'
 
 /*

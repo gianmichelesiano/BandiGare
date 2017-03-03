@@ -3,3 +3,7 @@ git add --all .
 git commit -m "Commento"
 // noo     git remote add origin https://github.com/gianmichelesiano/BandiGareApp.git
 git push -u origin master
+
+bandigare alias
+BandiGare  Keystore
+pass bandigare

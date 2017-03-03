@@ -28,6 +28,7 @@ import { TruncatePiccoloPipe  } from './truncatepiccolo.pipe';
 import { ProvinciePipe } from './provincie.pipe';
 import { ImportoPipe } from './importo.pipe';
 import { CapitPipe } from './capit.pipe';
+import { ScorporabiliPipe } from './scorporabili.pipe';
 
 
 export function provideStorage() {
@@ -38,6 +39,18 @@ export function provideStorage() {
 const cloudSettings: CloudSettings = {
   'core': {
     'app_id': 'e4895f7a'
+  },
+  'push': {
+    'sender_id': '1009811970424',
+    'pluginConfig': {
+      'ios': {
+        'badge': true,
+        'sound': true
+      },
+      'android': {
+        'iconColor': '#343434'
+      }
+    }
   }
 };
 
@@ -72,7 +85,9 @@ export const firebaseConfig = {
     TruncatePiccoloPipe,
     ProvinciePipe,
     ImportoPipe,
-    CapitPipe
+    CapitPipe,
+    ScorporabiliPipe
+
   ],
   imports: [
     IonicModule.forRoot(MyApp),

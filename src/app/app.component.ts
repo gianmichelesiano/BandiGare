@@ -18,6 +18,10 @@ import { LogoutPage } from '../pages/logout/logout';
 
 import { AggiornaPage } from '../pages/aggiorna/aggiorna';
 import { PreferenzePage } from '../pages/preferenze/preferenze';
+import {
+  Push,
+  PushToken
+} from '@ionic/cloud-angular';
 
 
 @Component({ 
@@ -32,7 +36,7 @@ export class MyApp {
   pagesDestra : any;
   loader: any;
 
-  constructor(public platform: Platform,  public storage: Storage, public auth:Auth, public loadingCtrl: LoadingController) {
+  constructor(public platform: Platform, public push: Push,  public storage: Storage, public auth:Auth, public loadingCtrl: LoadingController) {
     this.initializeApp();
     this.presentLoading();
 
@@ -47,7 +51,7 @@ export class MyApp {
     this.pagesDestra = [
         { title: 'Aggiorna', component: AggiornaPage },
         { title: 'Preferenze', component: PreferenzePage },
-        { title: 'Come Funziona', component: IntroPage },
+        { title: 'Rivedi Introduzione', component: IntroPage },
         { title: 'Logout', component: LogoutPage } 
     ];
   }
@@ -78,6 +82,22 @@ export class MyApp {
       });
 
     });
+
+     if (this.platform.is('android')) {  
+        this.push.register().then((t: PushToken) => {
+          return this.push.saveToken(t);
+        }).then((t: PushToken) => {
+          console.log('Token saved:', t.token);
+        });
+
+        this.push.rx.notification()
+        .subscribe((msg) => {
+          alert(msg.title + ': ' + msg.text);
+        });
+     } 
+     else {
+       console.log('non sono andorid')
+     }
   }
 
   openPage(page) {

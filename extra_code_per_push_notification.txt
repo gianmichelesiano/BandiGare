@@ -1,6 +1,0 @@
-va aggiunto alla fine di config.xml prima di     </widget>
-
-
-    <plugin name="phonegap-plugin-push" spec="~1.9.4">
-        <variable name="SENDER_ID" value="e4895f7a" />
-    </plugin>

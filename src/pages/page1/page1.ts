@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController,  NavParams } from 'ionic-angular';
+import { NavController,  NavParams, ToastController } from 'ionic-angular';
 import { Auth } from '@ionic/cloud-angular';
 import { LoginPage } from '../login/login'
 import { Storage } from '@ionic/storage';
@@ -35,7 +35,7 @@ export class Page1 {
  
 
 
-  constructor(public navCtrl: NavController, private auth:Auth,  public navParams: NavParams,  storage: Storage) {
+  constructor(public navCtrl: NavController, private auth:Auth,  public navParams: NavParams,  storage: Storage, private toastCtrl: ToastController) {
     if(!this.auth.isAuthenticated()) {
         this.navCtrl.setRoot(LoginPage)
     }
@@ -44,7 +44,16 @@ export class Page1 {
             this.gare.push({key: key, value: val[key]});
       }
       this.doughnutChartData = this.doDataGrafico();
-      this.barChartData = this.doGraficoBarre();   
+      this.barChartData = this.doGraficoBarre(); 
+
+      let messaggio = "Sono presenti "+this.gare.length+ " gare"
+      let toast = this.toastCtrl.create({
+        message: messaggio,
+        duration: 2000,
+        position: 'center'
+        });
+      toast.present();
+      console.log(this.gare.length)  
     })
 
   }
