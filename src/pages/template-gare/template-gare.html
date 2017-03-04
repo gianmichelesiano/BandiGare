@@ -12,9 +12,7 @@
 
 <ion-content padding>
 
-<ion-list >
-  <ion-item *ngFor="let gara of gareFiltrate">
-      <ion-card>
+      <ion-card *ngFor="let gara of gareFiltrate">
 
           <ion-card-header *ngIf="gara.value.ENTE">
              <p ion-text color="primary">{{gara.value.ENTE}}</p> 
@@ -34,42 +32,43 @@
 
               <ion-col width-67 ion-text color="primary">
                    <ion-row *ngIf="gara.value.REGIONE">
-                      <ion-col width-50 ><p ion-text color="primary">Regione:</p></ion-col> 
+                      <ion-col width-33 ><p ion-text color="primary">Regione:</p></ion-col> 
                       <ion-col><p>{{gara.value.REGIONE | truncatepiccolo: 40}}</p></ion-col>
                   </ion-row>
                    <ion-row *ngIf="gara.value.PROVINCIA">
-                      <ion-col width-50 ><p ion-text color="primary">Provincia:</p></ion-col>
+                      <ion-col width-33 ><p ion-text color="primary">Provincia:</p></ion-col>
                       <ion-col><p>{{ gara.value.PROVINCIA | provincie}}</p></ion-col>
                   </ion-row>
                    <ion-row *ngIf="gara.value.CITTA">
-                      <ion-col width-50><p ion-text color="primary">Comune:</p></ion-col>
+                      <ion-col width-33><p ion-text color="primary">Comune:</p></ion-col>
                       <ion-col><p>{{ gara.value.CITTA | truncatepiccolo : 40}}</p></ion-col>
                   </ion-row>
                   <ion-row>
-                      <ion-col width-50 ><p ion-text color="primary">Data scad.:</p></ion-col>
+                      <ion-col width-33 ><p ion-text color="primary">Data scad.:</p></ion-col>
                       <ion-col><p>{{ gara.value.DATA_SCADENZA * 1000 | date}}</p></ion-col>
                   </ion-row>
               </ion-col>
           </ion-row>
 
           <ion-row *ngIf="gara.value.TIPOLOGIA">
-             <ion-col width-25 ><p ion-text color="primary">Tipologia:</p></ion-col>
-             <ion-col><p>&nbsp;&nbsp;{{ gara.value.TIPOLOGIA | truncate : 25}}</p></ion-col>
+             <ion-col width-20 ><p ion-text color="primary">Tipologia:</p></ion-col>
+             <ion-col width-80><p>&nbsp;&nbsp;{{ gara.value.TIPOLOGIA | truncate : 25}}</p></ion-col>
           </ion-row> 
 
           <ion-row *ngIf="gara.value.OGGETTO">
-            <ion-col width-25 ><p ion-text color="primary">Oggetto:</p></ion-col>
-            <ion-col><p>&nbsp;&nbsp;{{ gara.value.OGGETTO | truncate : 25}}</p></ion-col>
+            <ion-col width-20 ><p ion-text color="primary">Oggetto:</p></ion-col>
+            <ion-col width-80><p>&nbsp;&nbsp;{{ gara.value.OGGETTO | truncate: 50 }}</p></ion-col>
           </ion-row> 
 
+
           <ion-row *ngIf="gara.value.IMPORTO">
-            <ion-col width-25 ><p ion-text color="primary">Importo:</p></ion-col>
-            <ion-col><p>&nbsp;&nbsp;{{ gara.value.IMPORTO  | importo | currency:'EUR'  }}</p></ion-col>
+            <ion-col width-20 ><p ion-text color="primary">Importo:</p></ion-col>
+            <ion-col width-80><p>&nbsp;&nbsp;{{ gara.value.IMPORTO  | importo | currency:'EUR'  }}</p></ion-col>
           </ion-row>
 
           <ion-row *ngIf="gara.value.CATEGORIA_PREVALENTE">
-            <ion-col width-25 ><p ion-text color="primary">Categoria:</p></ion-col>
-            <ion-col><p>&nbsp;&nbsp;{{ gara.value.CATEGORIA_PREVALENTE | capit }}</p></ion-col>
+            <ion-col width-20 ><p ion-text color="primary">Categoria:</p></ion-col>
+            <ion-col width-80><p>&nbsp;&nbsp;{{ gara.value.CATEGORIA_PREVALENTE | capit }}</p></ion-col>
           </ion-row> 
 
           <ion-row>
@@ -79,9 +78,8 @@
           </ion-card-content>
 
       </ion-card>
-    </ion-item>
 
-  </ion-list>
+
 <h2  ion-text color="secondary" *ngIf="visible">Non ci sono più gare</h2>
 
   <ion-infinite-scroll (ionInfinite)="loadMore($event)" *ngIf="!visible">

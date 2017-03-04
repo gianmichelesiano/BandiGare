@@ -101,7 +101,7 @@ export class DettagliPage {
       }
     }
     // Aggiungere ingo aggiuntive
-    if (this.gara.value.INFO_AGGIUNTIVE != '{}' || this.gara.value.INFO_AGGIUNTIVE != ''){
+    if (this.gara.value.INFO_AGGIUNTIVE != '{}' && this.gara.value.INFO_AGGIUNTIVE != ''){
    
       
        this.objectInfoAggiuntive = JSON.parse(this.gara.value.INFO_AGGIUNTIVE);

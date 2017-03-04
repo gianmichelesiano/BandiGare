@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 @Pipe({name: 'truncate'})
 export class TruncatePipe implements PipeTransform {
   transform(value: string, args: string[]) : string {
-    let limit = args.length > 0 ? parseInt(args[0], 25) : 25;
+    let limit = args.length > 0 ? parseInt(args[0], 35) : 35;
     let trail = args.length > 1 ? args[1] : '...';
 
     value = value.toLowerCase();
