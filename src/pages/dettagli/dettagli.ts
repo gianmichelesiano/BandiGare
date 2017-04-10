@@ -53,34 +53,34 @@ export class DettagliPage {
     let etichetta = 'Link'
     let tipo = 'link'
     if (this.gara.value.DOWNLOAD != ''){
-      let i = 0
+      let i = 1
       this.objectDownload = JSON.parse(this.gara.value.DOWNLOAD);
 
       for (var key in this.objectDownload) {
         if (key.toUpperCase().includes('AVVISO')){
           etichetta = "Avviso";
-          tipo = 'documento'
+          tipo = 'download'
         } else if (key.toUpperCase().includes('DISCIP')){
               etichetta = "Disciplinare di gara";
-              tipo = 'documento'
+              tipo = 'download'
         } else if (key.toUpperCase().includes('BANDO')){
            etichetta = "Bando di gara";
-           tipo = 'documento'
+           tipo = 'download'
         } else if (key.toUpperCase().includes('RETTI')){
            etichetta = "Rettifica";
-           tipo = 'documento'
+           tipo = 'download'
         } else if (key.toUpperCase().includes('SCHEMA')){
            etichetta = "Schema di gara";
-           tipo = 'documento'
+           tipo = 'download'
         } else if (key.toUpperCase().includes('PLANIM')){
            etichetta = "Planimetria";
-           tipo = 'documento'
+           tipo = 'download'
         }  else if (key.toUpperCase().includes('COMPUT')){
            etichetta = "Computo Metrico";
-           tipo = 'documento'
+           tipo = 'download'
         }  else if (key.toUpperCase().includes('PDF')){
-           etichetta = "Documemento";
-           tipo = 'documento'
+           etichetta = "Documento";
+           tipo = 'download'
         }  else if (key.toUpperCase().includes('URL')){
            etichetta = "Apri sito web";
            tipo = 'link'
@@ -91,7 +91,7 @@ export class DettagliPage {
            etichetta = "Fascicolo di gara";
            tipo = 'link'
         }  else {
-          etichetta = "LINK" + i;
+          etichetta = "LINK " + i;
           tipo = 'link'
           i++
         }

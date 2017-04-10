@@ -18,10 +18,15 @@ import {
 
 export class AggiornaPage {
 
-  preferenzeSnap: FirebaseObjectObservable<any>;
+  notificheSnap: FirebaseObjectObservable<any>;
   gare: FirebaseObjectObservable<any>;
 
   constructor(public platform: Platform, public navCtrl: NavController, public user:User, public push: Push, public navParams: NavParams, storage: Storage, public af: AngularFire, public loadingCtrl:LoadingController) {
+
+
+
+
+
   	// CARICA TUTTE LE GARE NEL DATABASE
     let loader = this.loadingCtrl.create({
     content: "Attendere il caricamento delle gare..."
@@ -39,8 +44,8 @@ export class AggiornaPage {
       this.push.register().then((t: PushToken) => {
          return this.push.saveToken(t);
       }).then((t: PushToken) => {
-         this.preferenzeSnap = this.af.database.object('/utenti/'+this.user.id+'/preferenze/', { preserveSnapshot: true });
-         this.preferenzeSnap.set({pushToken:t.token});
+         this.notificheSnap = this.af.database.object('/utenti/'+this.user.id+'/notifiche/', { preserveSnapshot: true });
+         this.notificheSnap.set({pushToken:t.token});
       });
     }
 

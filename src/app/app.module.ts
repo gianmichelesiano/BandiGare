@@ -31,6 +31,7 @@ import { CapitPipe } from './capit.pipe';
 import { ScorporabiliPipe } from './scorporabili.pipe';
 
 
+
 export function provideStorage() {
   return new Storage(['sqlite', 'websql', 'indexeddb'], { name: 'bandigare' });
 }

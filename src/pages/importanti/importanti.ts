@@ -18,6 +18,9 @@ export class ImportantiPage {
 
   numGareInfinite : number = 10;
   visible : boolean = false;
+  importanti : boolean = false;
+  preferite : boolean = false;
+  
   private titolo: string 
 
   preferenzeSnap: FirebaseObjectObservable<any>;
@@ -51,10 +54,13 @@ export class ImportantiPage {
                         this.gareRicercate =   this.gare.filter(function(el){
                                 return arr.indexOf(el.key) > -1;
                         });
-
-                        if (this.gareRicercate.length<=this.numGareInfinite){
+                
+                        if (this.gareRicercate.length<=this.numGareInfinite &&  this.gareRicercate.length>0){
                           this.numGareInfinite = this.gareRicercate.length
                           this.visible = true;
+                        } else {
+                          this.numGareInfinite = 0
+                          this.importanti = true;
                         }
                         for (let i = 0; i < this.numGareInfinite; i++) {
                            this.gareFiltrate.push( this.gareRicercate[i]);

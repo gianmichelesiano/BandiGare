@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NavController, NavParams,  LoadingController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { DettagliPage } from '../dettagli/dettagli'
+import { PreferenzePage } from '../preferenze/preferenze'
+
 import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
 import { User } from '@ionic/cloud-angular';
 
@@ -22,6 +24,8 @@ export class PreferitePage {
   locVar:any;
   numGareInfinite : number = 10;
   visible : boolean = false;
+  importanti : boolean = false;
+  preferite : boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, storage: Storage, public user:User, private af: AngularFire, public loadingCtrl:LoadingController) {
     this.titolo = "Preferite";
@@ -68,9 +72,12 @@ export class PreferitePage {
 					}
 				}
 
-          if (this.gareRicercate.length<=this.numGareInfinite){
+          if (this.gareRicercate.length<=this.numGareInfinite &&  this.gareRicercate.length>0){
             this.numGareInfinite = this.gareRicercate.length
             this.visible = true;
+          } else {
+            this.numGareInfinite = 0
+            this.preferite = true;
           }
           for (let i = 0; i < this.numGareInfinite; i++) {
       				 this.gareFiltrate.push( this.gareRicercate[i]);
@@ -79,6 +86,10 @@ export class PreferitePage {
     })  
   }
 
+
+  impostaPref(){
+    this.navCtrl.push( PreferenzePage )
+  }
 
   apriDettaglio(gara){
     this.navCtrl.push( DettagliPage, {

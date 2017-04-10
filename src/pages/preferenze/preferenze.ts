@@ -81,7 +81,7 @@ export class PreferenzePage {
 	    duration: 2000,
 	    position: 'down'
   	  });
-	 toast.present();
+	    toast.present();
   }
  }
 
