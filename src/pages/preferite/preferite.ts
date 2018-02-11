@@ -7,6 +7,8 @@ import { PreferenzePage } from '../preferenze/preferenze'
 import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
 import { User } from '@ionic/cloud-angular';
 
+import firebase from 'firebase';
+
 @Component({
   selector: 'page-preferite',
   templateUrl: '../template-gare/template-gare.html'
@@ -18,6 +20,7 @@ export class PreferitePage {
   public gareRicercate = [];
   public categoriePreferite :any;
   private titolo: string
+  public uid: any;
 
 
   preferenzeSnap: FirebaseObjectObservable<any>;
@@ -29,12 +32,13 @@ export class PreferitePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, storage: Storage, public user:User, private af: AngularFire, public loadingCtrl:LoadingController) {
     this.titolo = "Preferite";
+    this.uid = firebase.auth().currentUser.uid;
     storage.get('gareDB').then((val) => {
       for (var key in val) {    
             this.gare.push({key: key, value: val[key]});
       }
 
-   	  this.preferenzeSnap = this.af.database.object('/utenti/'+this.user.id+'/preferenze/', { preserveSnapshot: true });
+   	  this.preferenzeSnap = this.af.database.object('/utenti/'+this.uid+'/preferenze/', { preserveSnapshot: true });
 	    let loader = this.loadingCtrl.create({
 	    content: "Sto caricando le preferenze..."
 	  });

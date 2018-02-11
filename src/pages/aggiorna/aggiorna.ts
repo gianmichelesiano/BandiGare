@@ -25,8 +25,6 @@ export class AggiornaPage {
 
 
 
-
-
   	// CARICA TUTTE LE GARE NEL DATABASE
     let loader = this.loadingCtrl.create({
     content: "Attendere il caricamento delle gare..."

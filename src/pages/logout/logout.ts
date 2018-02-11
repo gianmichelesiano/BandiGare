@@ -3,7 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { Auth} from '@ionic/cloud-angular';
 import { LoginPage } from '../login/login';
 
-
+import firebase from 'firebase';
 /*
   Generated class for the Logout page.
 
@@ -15,8 +15,10 @@ import { LoginPage } from '../login/login';
   templateUrl: 'logout.html'
 })
 export class LogoutPage {
-
+  public fireAuth: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public auth:Auth,) {
+
+      this.fireAuth = firebase.auth();
 	  	this.auth.logout();
 	    this.navCtrl.setRoot(LoginPage);
   }

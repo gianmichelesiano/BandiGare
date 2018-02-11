@@ -5,6 +5,8 @@ import { DettagliPage } from '../dettagli/dettagli'
 import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
 import { User } from '@ionic/cloud-angular';
 
+import firebase from 'firebase';
+
 @Component({
   selector: 'page-importanti',
   templateUrl: '../template-gare/template-gare.html'
@@ -15,6 +17,8 @@ export class ImportantiPage {
   public gareRicercate = [];
   public gareFiltrate = [];
   public gareOrdinate = [];
+
+  public uid: any;
 
   numGareInfinite : number = 10;
   visible : boolean = false;
@@ -28,6 +32,7 @@ export class ImportantiPage {
 
   constructor(public navCtrl: NavController, public user:User, public navParams: NavParams, storage: Storage, public af: AngularFire, public loadingCtrl:LoadingController) {
     this.titolo = "Gare Importanti";
+    this.uid = firebase.auth().currentUser.uid;
     storage.get('gareDB').then((val) => {
       for (var key in val) {    
             this.gare.push({key: key, value: val[key]});
@@ -41,7 +46,7 @@ export class ImportantiPage {
 
     let arr= [];
     console.log("avvio")
-    this.preferenzeSnap = this.af.database.object('/utenti/'+this.user.id+'/importanti/', { preserveSnapshot: true });
+    this.preferenzeSnap = this.af.database.object('/utenti/'+this.uid+'/importanti/', { preserveSnapshot: true });
     this.preferenzeSnap.subscribe(snapshot => {
                         let gareImportanti = snapshot.val();
                         console.log(gareImportanti)

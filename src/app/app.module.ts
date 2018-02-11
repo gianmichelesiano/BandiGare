@@ -4,6 +4,7 @@ import { MyApp } from './app.component';
 import { Storage } from '@ionic/storage';
 import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
 import { AngularFireModule } from 'angularfire2';
+
 import { LOCALE_ID } from '@angular/core';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 
@@ -30,7 +31,7 @@ import { ImportoPipe } from './importo.pipe';
 import { CapitPipe } from './capit.pipe';
 import { ScorporabiliPipe } from './scorporabili.pipe';
 
-
+import * as firebase from 'firebase';
 
 export function provideStorage() {
   return new Storage(['sqlite', 'websql', 'indexeddb'], { name: 'bandigare' });
@@ -63,6 +64,8 @@ export const firebaseConfig = {
     storageBucket: "bandigare-8096d.appspot.com",
     messagingSenderId: "1009811970424"
 };
+
+firebase.initializeApp(firebaseConfig); //<-- where the magic happens
 
 @NgModule({
   declarations: [

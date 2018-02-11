@@ -6,6 +6,7 @@ import { MyDataService } from '../../services/mydataservice';
 import { Categoria } from '../../services/categoria';
 import { Provincia } from '../../services/provincia';
 
+import firebase from 'firebase';
 
 
 @Component({
@@ -16,6 +17,7 @@ import { Provincia } from '../../services/provincia';
 export class PreferenzePage {
 
 
+ public uid: any;
  contac = [
   	{ mail:"mail",  checked: true},
   	{ notifica:"notifica",  checked: true}
@@ -42,12 +44,15 @@ export class PreferenzePage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public user:User, private _mydataService: MyDataService, af: AngularFire, public loadingCtrl:LoadingController, private toastCtrl: ToastController) {
 
 
+    this.uid = firebase.auth().currentUser.uid;
+    console.log(this.uid)
+
   	this.categorie = this._mydataService.getCategoria();
   	this.provincie = this._mydataService.getProvincia();
 
 
 
-    this.preferenzeSnap = af.database.object('/utenti/'+this.user.id+'/preferenze/', { preserveSnapshot: true });
+    this.preferenzeSnap = af.database.object('/utenti/'+this.uid+'/preferenze/', { preserveSnapshot: true });
 
     let loader = this.loadingCtrl.create({
     content: "Sto caricando le preferenze..."

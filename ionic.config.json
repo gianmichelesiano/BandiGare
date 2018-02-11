@@ -1,6 +1,8 @@
 {
   "name": "BandiGare",
   "app_id": "e4895f7a",
-  "v2": true,
-  "typescript": true
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
 }

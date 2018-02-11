@@ -1,8 +1,12 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController, LoadingController } from 'ionic-angular';
 import { Auth, User, UserDetails, IDetailedError } from '@ionic/cloud-angular';
-//import { Page1 } from '../page1/page1'
+import { Page1 } from '../page1/page1'
 import { AggiornaPage } from '../aggiorna/aggiorna'
+
+
+import firebase from 'firebase';
+
 
 /*
 
@@ -15,14 +19,23 @@ import { AggiornaPage } from '../aggiorna/aggiorna'
   selector: 'page-login',
   templateUrl: 'login.html'
 })
+
+
 export class LoginPage {
+
+  public fireAuth: any;
+  public userData: any;
 
   showLogin:boolean = true;
   email:string = '';
   password:string = '';
   name:string = '';
 
-  constructor(public navCtrl: NavController, public auth:Auth, public user: User, public alertCtrl: AlertController, public loadingCtrl:LoadingController) {}
+  constructor(public navCtrl: NavController, public auth:Auth, public user: User, public alertCtrl: AlertController, public loadingCtrl:LoadingController) {
+
+    this.fireAuth = firebase.auth();
+    this.userData = firebase.database().ref('/userData');
+  }
 
   ionViewDidLoad() {
     console.log('Hello LoginPage Page');
@@ -50,11 +63,15 @@ export class LoginPage {
         content: "Autenticazione..."
       });
       loader.present();
+
+      // LOGIN
       
-      this.auth.login('basic', {'email':this.email, 'password':this.password}).then(() => {
+      //this.auth.login('basic', {'email':this.email, 'password':this.password}).then(() => {
+      this.fireAuth.signInWithEmailAndPassword(this.email, this.password).then(() => {
         console.log('ok i guess?');
         loader.dismissAll();
-        this.navCtrl.setRoot(AggiornaPage);        
+        this.navCtrl.setRoot(AggiornaPage); 
+        //this.navCtrl.setRoot(Page1);            
       }, (err) => {
         loader.dismissAll();
         console.log(err.message);
@@ -100,9 +117,15 @@ export class LoginPage {
       });
       loader.present();
 
-      this.auth.signup(details).then(() => {
+      // REGISTER
+
+     
+      //this.auth.signup(details).then(() => {
+       this.fireAuth.createUserWithEmailAndPassword(this.email, this.password).then(() => {
         console.log('ok signup');
-        this.auth.login('basic', {'email':details.email, 'password':details.password}).then(() => {
+        //this.fireAuth.signInWithEmailAndPassword(this.email, this.password).then(() => {
+        //this.auth.login('basic', {'email':details.email, 'password':details.password}).then(() => {
+        this.fireAuth.signInWithEmailAndPassword(this.email, this.password).then(() => {  
           loader.dismissAll();
           this.navCtrl.setRoot(AggiornaPage);
         });

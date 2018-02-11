@@ -4,7 +4,7 @@ import { Auth } from '@ionic/cloud-angular';
 import { LoginPage } from '../login/login'
 import { Storage } from '@ionic/storage';
 
-
+import firebase from 'firebase';
 
 @Component({
   selector: 'page-page1',
@@ -36,9 +36,12 @@ export class Page1 {
 
 
   constructor(public navCtrl: NavController, private auth:Auth,  public navParams: NavParams,  storage: Storage, private toastCtrl: ToastController) {
-    if(!this.auth.isAuthenticated()) {
-        this.navCtrl.setRoot(LoginPage)
-    }
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (!user) {
+        navCtrl.setRoot(LoginPage);
+      }
+    });
+
     storage.get('gareDB').then((val) => {
       for (var key in val) {    
             this.gare.push({key: key, value: val[key]});
