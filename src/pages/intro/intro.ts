@@ -2,7 +2,7 @@
 
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { Page1 } from '../page1/page1';
+import { LoginPage } from '../login/login';
 
 /*
   Generated class for the Intro page.
@@ -31,7 +31,7 @@ export class IntroPage {
   }
  
   goToHome(){
-    this.navCtrl.setRoot(Page1);
+    this.navCtrl.setRoot(LoginPage);
   }
  
 }

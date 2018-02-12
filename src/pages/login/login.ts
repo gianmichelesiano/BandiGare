@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController, LoadingController } from 'ionic-angular';
 import { Auth, User, UserDetails, IDetailedError } from '@ionic/cloud-angular';
-import { Page1 } from '../page1/page1'
+//import { Page1 } from '../page1/page1'
 import { AggiornaPage } from '../aggiorna/aggiorna'
-
+import { Storage } from '@ionic/storage';
 
 import firebase from 'firebase';
 
@@ -31,10 +31,21 @@ export class LoginPage {
   password:string = '';
   name:string = '';
 
-  constructor(public navCtrl: NavController, public auth:Auth, public user: User, public alertCtrl: AlertController, public loadingCtrl:LoadingController) {
+  constructor(public storage: Storage, public navCtrl: NavController, public auth:Auth, public user: User, public alertCtrl: AlertController, public loadingCtrl:LoadingController) {
 
     this.fireAuth = firebase.auth();
     this.userData = firebase.database().ref('/userData');
+
+    storage.get('email').then((val) => {
+        this.email = val
+        console.log('Your email', val);
+     });
+
+     storage.get('password').then((val) => {
+        this.password = val
+        console.log('Your password', val);
+     });
+
   }
 
   ionViewDidLoad() {
@@ -69,7 +80,11 @@ export class LoginPage {
       //this.auth.login('basic', {'email':this.email, 'password':this.password}).then(() => {
       this.fireAuth.signInWithEmailAndPassword(this.email, this.password).then(() => {
         console.log('ok i guess?');
+
+        this.storage.set('email', this.email);
+        this.storage.set('password', this.password);
         loader.dismissAll();
+        
         this.navCtrl.setRoot(AggiornaPage); 
         //this.navCtrl.setRoot(Page1);            
       }, (err) => {
@@ -125,6 +140,9 @@ export class LoginPage {
         console.log('ok signup');
         //this.fireAuth.signInWithEmailAndPassword(this.email, this.password).then(() => {
         //this.auth.login('basic', {'email':details.email, 'password':details.password}).then(() => {
+        //this.nativeStorage.setItem('cred', {email: this.email, password: this.password}) 
+        this.storage.set('email', this.email);
+        this.storage.set('password', this.password);
         this.fireAuth.signInWithEmailAndPassword(this.email, this.password).then(() => {  
           loader.dismissAll();
           this.navCtrl.setRoot(AggiornaPage);

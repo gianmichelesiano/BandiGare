@@ -38,9 +38,13 @@ export class Page1 {
   constructor(public navCtrl: NavController, private auth:Auth,  public navParams: NavParams,  storage: Storage, private toastCtrl: ToastController) {
     firebase.auth().onAuthStateChanged(function(user) {
       if (!user) {
+        console.log(user)
         navCtrl.setRoot(LoginPage);
+      } else {
+        console.log(user)
       }
     });
+    console.log('')
 
     storage.get('gareDB').then((val) => {
       for (var key in val) {    
