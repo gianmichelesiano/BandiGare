@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Auth} from '@ionic/cloud-angular';
 import { LoginPage } from '../login/login';
+import { Storage } from '@ionic/storage';
 
 import firebase from 'firebase';
 /*
@@ -16,8 +17,10 @@ import firebase from 'firebase';
 })
 export class LogoutPage {
   public fireAuth: any;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public auth:Auth,) {
+  constructor(public storage: Storage, public navCtrl: NavController, public navParams: NavParams, public auth:Auth,) {
 
+      this.storage.set('email', null);
+      this.storage.set('password', null);
       this.fireAuth = firebase.auth();
 	  	this.auth.logout();
 	    this.navCtrl.setRoot(LoginPage);

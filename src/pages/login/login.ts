@@ -49,7 +49,21 @@ export class LoginPage {
   }
 
   ionViewDidLoad() {
-    console.log('Hello LoginPage Page');
+    this.storage.get('email').then((val) => {
+        this.email = val
+        console.log('Dentro email', val);
+          this.storage.get('password').then((val) => {
+          this.password = val
+          console.log('Dentro password', val);
+          if (this.email != null && this.password != null) {
+            this.fireAuth.signInWithEmailAndPassword(this.email, this.password).then(() => {
+              console.log('LOGIN iNTERNAL');
+              this.navCtrl.setRoot(AggiornaPage); 
+              //this.navCtrl.setRoot(Page1);            
+            });
+          }
+        });
+     });
   }
 
   /*
